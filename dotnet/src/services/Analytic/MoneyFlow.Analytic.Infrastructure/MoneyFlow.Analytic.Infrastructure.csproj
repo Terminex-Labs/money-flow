@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\abstractions\Shared.Cache.Abstraction\Shared.Cache.Abstraction.csproj" />
+    <ProjectReference Include="..\..\..\shared\abstractions\Shared.Messaging.Abstraction\Shared.Messaging.Abstraction.csproj" />
+    <ProjectReference Include="..\..\..\shared\contracts\Shared.Analytic.Contracts\Shared.Analytic.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\core\Shared.Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\shared\infrastructure\Shared.Dapper\Shared.Dapper.csproj" />
+    <ProjectReference Include="..\..\..\shared\infrastructure\Shared.Kafka\Shared.Kafka.csproj" />
+    <ProjectReference Include="..\..\..\shared\infrastructure\Shared.Redis\Shared.Redis.csproj" />
+    <ProjectReference Include="..\MoneyFlow.Analytic.Application\MoneyFlow.Analytic.Application.csproj" />
+    <ProjectReference Include="..\MoneyFlow.Analytic.Domain\MoneyFlow.Analytic.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\abstractions\Shared.Cache.Abstraction\Shared.Cache.Abstraction.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\contracts\Shared.Catalog.Contracts\Shared.Catalog.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\core\Shared.Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\shared\observability\Shared.Logging\Shared.Logging.csproj" />
+    <ProjectReference Include="..\MoneyFlow.Catalog.Application\MoneyFlow.Catalog.Application.csproj" />
+    <ProjectReference Include="..\MoneyFlow.Catalog.Infrastructure\MoneyFlow.Catalog.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

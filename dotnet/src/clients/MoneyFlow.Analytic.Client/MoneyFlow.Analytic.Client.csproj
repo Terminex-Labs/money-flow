@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\contracts\Shared.Analytic.Contracts\Shared.Analytic.Contracts.csproj" />
+    <ProjectReference Include="..\..\shared\infrastructure\Shared.Http\Shared.Http.csproj" />
+  </ItemGroup>
+
 </Project>

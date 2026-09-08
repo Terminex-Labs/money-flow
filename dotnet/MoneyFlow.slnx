@@ -38,7 +38,10 @@
   </Folder>
   <Folder Name="/src/shared/contracts/">
     <Project Path="src/shared/contracts/Shared.Analytic.Contracts/Shared.Analytic.Contracts.csproj" />
+    <Project Path="src/shared/contracts/Shared.Authentication.Contracts/Shared.Authentication.Contracts.csproj" />
     <Project Path="src/shared/contracts/Shared.Catalog.Contracts/Shared.Catalog.Contracts.csproj" />
+    <Project Path="src/shared/contracts/Shared.Files.Contracts/Shared.Files.Contracts.csproj" />
+    <Project Path="src/shared/contracts/Shared.IdentityHub.Contracts/Shared.IdentityHub.Contracts.csproj" />
     <Project Path="src/shared/contracts/Shared.Ledger.Contracts/Shared.Ledger.Contracts.csproj" />
   </Folder>
   <Folder Name="/src/shared/core/">
