@@ -1,0 +1,58 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/apps/">
+    <Project Path="src/apps/MoneyFlow.Bff/MoneyFlow.Bff.csproj" />
+    <Project Path="src/apps/MoneyFlow.Desktop/MoneyFlow.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/src/clients/">
+    <Project Path="src/clients/MoneyFlow.Analytic.Client/MoneyFlow.Analytic.Client.csproj" />
+    <Project Path="src/clients/MoneyFlow.Authentication.Client/MoneyFlow.Authentication.Client.csproj" />
+    <Project Path="src/clients/MoneyFlow.Catalog.Client/MoneyFlow.Catalog.Client.csproj" />
+    <Project Path="src/clients/MoneyFlow.Files.Client/MoneyFlow.Files.Client.csproj" />
+    <Project Path="src/clients/MoneyFlow.IdentityHub.Client/MoneyFlow.IdentityHub.Client.csproj" />
+    <Project Path="src/clients/MoneyFlow.Ledger.Client/MoneyFlow.Ledger.Client.csproj" />
+  </Folder>
+  <Folder Name="/src/services/" />
+  <Folder Name="/src/services/Analytic/">
+    <Project Path="src/services/Analytic/MoneyFlow.Analytic.Api/MoneyFlow.Analytic.Api.csproj" />
+    <Project Path="src/services/Analytic/MoneyFlow.Analytic.Application/MoneyFlow.Analytic.Application.csproj" />
+    <Project Path="src/services/Analytic/MoneyFlow.Analytic.Domain/MoneyFlow.Analytic.Domain.csproj" />
+    <Project Path="src/services/Analytic/MoneyFlow.Analytic.Infrastructure/MoneyFlow.Analytic.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/services/Catalog/">
+    <Project Path="src/services/Catalog/MoneyFlow.Catalog.Api/MoneyFlow.Catalog.Api.csproj" />
+    <Project Path="src/services/Catalog/MoneyFlow.Catalog.Application/MoneyFlow.Catalog.Application.csproj" />
+    <Project Path="src/services/Catalog/MoneyFlow.Catalog.Domain/MoneyFlow.Catalog.Domain.csproj" />
+    <Project Path="src/services/Catalog/MoneyFlow.Catalog.Infrastructure/MoneyFlow.Catalog.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/services/Ledger/">
+    <Project Path="src/services/Ledger/MoneyFlow.Ledger.Api/MoneyFlow.Ledger.Api.csproj" />
+    <Project Path="src/services/Ledger/MoneyFlow.Ledger.Application/MoneyFlow.Ledger.Application.csproj" />
+    <Project Path="src/services/Ledger/MoneyFlow.Ledger.Domain/MoneyFlow.Ledger.Domain.csproj" />
+    <Project Path="src/services/Ledger/MoneyFlow.Ledger.Infrastructure/MoneyFlow.Ledger.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/" />
+  <Folder Name="/src/shared/abstractions/">
+    <Project Path="src/shared/abstractions/Shared.Cache.Abstraction/Shared.Cache.Abstraction.csproj" />
+    <Project Path="src/shared/abstractions/Shared.Messaging.Abstraction/Shared.Messaging.Abstraction.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/contracts/">
+    <Project Path="src/shared/contracts/Shared.Analytic.Contracts/Shared.Analytic.Contracts.csproj" />
+    <Project Path="src/shared/contracts/Shared.Catalog.Contracts/Shared.Catalog.Contracts.csproj" />
+    <Project Path="src/shared/contracts/Shared.Ledger.Contracts/Shared.Ledger.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/core/">
+    <Project Path="src/shared/core/Shared.Application/Shared.Application.csproj" />
+    <Project Path="src/shared/core/Shared.Kernel/Shared.Kernel.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/infrastructure/">
+    <Project Path="src/shared/infrastructure/Shared.Dapper/Shared.Dapper.csproj" />
+    <Project Path="src/shared/infrastructure/Shared.EntityFramework/Shared.EntityFramework.csproj" />
+    <Project Path="src/shared/infrastructure/Shared.Kafka/Shared.Kafka.csproj" />
+    <Project Path="src/shared/infrastructure/Shared.Redis/Shared.Redis.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/observability/">
+    <Project Path="src/shared/observability/Shared.Logging/Shared.Logging.csproj" />
+  </Folder>
+
+</Solution>
