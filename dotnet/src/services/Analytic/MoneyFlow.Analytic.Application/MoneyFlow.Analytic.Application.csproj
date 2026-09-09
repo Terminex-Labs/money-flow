@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\contracts\Shared.Analytic.Contracts\Shared.Analytic.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\core\Shared.Application\Shared.Application.csproj" />
+    <ProjectReference Include="..\..\..\shared\core\Shared.Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\MoneyFlow.Analytic.Domain\MoneyFlow.Analytic.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

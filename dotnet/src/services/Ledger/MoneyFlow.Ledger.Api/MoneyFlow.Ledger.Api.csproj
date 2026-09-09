@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\contracts\Shared.Ledger.Contracts\Shared.Ledger.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\core\Shared.Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\shared\observability\Shared.Logging\Shared.Logging.csproj" />
+    <ProjectReference Include="..\MoneyFlow.Ledger.Application\MoneyFlow.Ledger.Application.csproj" />
+    <ProjectReference Include="..\MoneyFlow.Ledger.Infrastructure\MoneyFlow.Ledger.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

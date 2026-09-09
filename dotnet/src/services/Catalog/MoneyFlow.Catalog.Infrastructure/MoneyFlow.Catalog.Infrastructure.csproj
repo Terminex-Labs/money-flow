@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\abstractions\Shared.Cache.Abstraction\Shared.Cache.Abstraction.csproj" />
+    <ProjectReference Include="..\..\..\shared\abstractions\Shared.Messaging.Abstraction\Shared.Messaging.Abstraction.csproj" />
+    <ProjectReference Include="..\..\..\shared\contracts\Shared.Catalog.Contracts\Shared.Catalog.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\core\Shared.Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\shared\infrastructure\Shared.EntityFramework\Shared.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\..\shared\infrastructure\Shared.Kafka\Shared.Kafka.csproj" />
+    <ProjectReference Include="..\..\..\shared\infrastructure\Shared.Redis\Shared.Redis.csproj" />
+    <ProjectReference Include="..\MoneyFlow.Catalog.Application\MoneyFlow.Catalog.Application.csproj" />
+    <ProjectReference Include="..\MoneyFlow.Catalog.Domain\MoneyFlow.Catalog.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
