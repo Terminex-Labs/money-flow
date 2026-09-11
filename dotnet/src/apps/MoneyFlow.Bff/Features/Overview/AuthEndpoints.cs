@@ -12,7 +12,15 @@ namespace MoneyFlow.Bff.Features.Overview
     {
         public static void MapAuthEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapGet("user/dashboard", async (HttpContext httpContext, [FromServices] IIdentityHubClient identityHubClient, [FromServices] IFileClient fileClient, [FromServices] IJwtReader jwtReader, CancellationToken ct = default) =>
+            app.MapGet("user/dashboard", async 
+                (
+                    HttpContext httpContext, 
+                    [FromServices] IIdentityHubClient identityHubClient, 
+                    [FromServices] IFileClient fileClient, 
+                    [FromServices] IJwtReader jwtReader, 
+                    [FromServices] ILogger logger,
+                    CancellationToken ct = default
+                ) =>
             {
                 var accessToken = httpContext.Items["AccessToken"] as string;
                 var dto = jwtReader.Extract(accessToken!);
@@ -20,7 +28,10 @@ namespace MoneyFlow.Bff.Features.Overview
                 var result = await identityHubClient.GetUserInfoAsync(dto.UserId, ct);
 
                 if (result.IsFailure)
+                {
+                    logger.LogError("Во время выполнения `AuthEndpoints` в `user/dashboard`, пришел не удачный ответ от `IdentityHubService` в методе `GetUserInfoAsync`! Ошибка: {Errors}", result.StringMessage);
                     return Results.StatusCode(StatusCodes.Status500InternalServerError);
+                }
 
                 var response = new DashboardResponse(AvatarUrl: null, UserName: result.Value.UserName);
 
@@ -29,7 +40,11 @@ namespace MoneyFlow.Bff.Features.Overview
                     var (bucketName, fileName) = S3UrlParser.Parse(result.Value.Avatar);
                     var s3Result = await fileClient.GetPresignedUrlAsync(new PresignedUrlRequest(bucketName!, fileName!), ct);
 
-                    s3Result.Switch(() => response = response with { AvatarUrl = s3Result.Value.PresignedUrl }, errors => { });
+                    s3Result.Switch
+                    (
+                        () => response = response with { AvatarUrl = s3Result.Value.PresignedUrl }, 
+                        errors => logger.LogError("Во время выполнения `AuthEndpoints` в `user/dashboard`, пришел не удачный ответ от `MinervaService` в методе `GetPresignedUrlAsync`! Ошибка: {Errors}", result.StringMessage)
+                    );
                 }
 
                 return result.Match
