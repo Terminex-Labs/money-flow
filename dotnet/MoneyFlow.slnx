@@ -51,6 +51,7 @@
   <Folder Name="/src/shared/infrastructure/">
     <Project Path="src/shared/infrastructure/Shared.Dapper/Shared.Dapper.csproj" />
     <Project Path="src/shared/infrastructure/Shared.EntityFramework/Shared.EntityFramework.csproj" />
+    <Project Path="src/shared/infrastructure/Shared.Http/Shared.Http.csproj" />
     <Project Path="src/shared/infrastructure/Shared.Kafka/Shared.Kafka.csproj" />
     <Project Path="src/shared/infrastructure/Shared.Redis/Shared.Redis.csproj" />
   </Folder>

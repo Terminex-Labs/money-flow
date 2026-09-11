@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Terminex.Common" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\shared\contracts\Shared.Files.Contracts\Shared.Files.Contracts.csproj" />
     <ProjectReference Include="..\..\shared\infrastructure\Shared.Http\Shared.Http.csproj" />
   </ItemGroup>

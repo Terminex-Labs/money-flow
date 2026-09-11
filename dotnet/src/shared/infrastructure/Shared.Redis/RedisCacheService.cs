@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Microsoft.Extensions.Options;
 using Shared.Cache.Abstraction;
 using StackExchange.Redis;
+using Terminex.Common.Results;
 
 namespace Shared.Redis
 {
@@ -45,12 +46,12 @@ namespace Shared.Redis
             "SetJsonAsync");
         }
 
-        public Task<T?> GetJsonAsync<T>(string key)
+        public async Task<Result<T>> GetJsonAsync<T>(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
                 throw new ArgumentException("Key cannot be null or empty", nameof(key));
 
-            return ExecuteWithRetryAsync(async () => 
+            var execute = await ExecuteWithRetryAsync(async () => 
             {
                 var json = await _database.StringGetAsync(key);
 
@@ -69,6 +70,8 @@ namespace Shared.Redis
                 }
             },
             "GetJsonAsync");
+
+            return Result<T>.Success(execute);
         }
 
         #endregion
