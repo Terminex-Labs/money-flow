@@ -18,7 +18,7 @@ namespace MoneyFlow.Bff.Features.Overview
                     [FromServices] IIdentityHubClient identityHubClient, 
                     [FromServices] IFileClient fileClient, 
                     [FromServices] IJwtReader jwtReader, 
-                    [FromServices] ILogger logger,
+                    [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
             {
