@@ -1,6 +1,7 @@
-*,
-*::before,
-*::after {
+@use './variables' as *;
+@use './styles/button' as *;
+
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
