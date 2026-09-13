@@ -1,0 +1,1 @@
+type ViewPage = 'dashboard' | 'transaction' | 'budget' | 'debt' | 'account';
