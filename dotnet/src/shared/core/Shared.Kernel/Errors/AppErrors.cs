@@ -6,5 +6,6 @@ namespace Shared.Kernel.Errors
     {
         public static readonly ErrorCode BackendHttp = ErrorCode.Custom(nameof(BackendHttp), 10001);
         public static readonly ErrorCode RequestCancelled = ErrorCode.Custom(nameof(RequestCancelled), 10002);
+        public static readonly ErrorCode IncorrectName = ErrorCode.Custom(nameof(IncorrectName), 10002);
     }
 }
