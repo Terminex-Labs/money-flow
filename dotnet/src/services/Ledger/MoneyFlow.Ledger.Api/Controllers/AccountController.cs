@@ -5,6 +5,7 @@ using Shared.Ledger.Contracts.Accounts.Request;
 using MoneyFlow.Ledger.Application.Features.Accounts.Queries.All;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Create;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Freeze;
+using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Unfreeze;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.UpdateName;
 
 namespace MoneyFlow.Ledger.Api.Controllers
@@ -59,6 +60,20 @@ namespace MoneyFlow.Ledger.Api.Controllers
         public async Task<IActionResult> Freeze([FromRoute] Guid id, CancellationToken ct = default)
         {
             var command = new FreezeAccountCommand(id);
+
+            var result = await mediator.Send(command, ct);
+
+            return result.Match
+            (
+                onSuccess: () => Ok(),
+                onFailure: error => this.MapActionResult(error)
+            );
+        }
+
+        [HttpPatch("unfreeze/{id}")]
+        public async Task<IActionResult> Unfreeze([FromRoute] Guid id, CancellationToken ct = default)
+        {
+            var command = new UnfreezeAccountCommand(id);
 
             var result = await mediator.Send(command, ct);
 
