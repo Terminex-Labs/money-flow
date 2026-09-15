@@ -21,5 +21,6 @@ namespace Shared.Kernel.ValueObjects
 
         public override string ToString() => Value.ToString();
         public static implicit operator Guid(TypeAccountId value) => value.Value;
+        public static implicit operator string(TypeAccountId value) => value.ToString();
     }
 }

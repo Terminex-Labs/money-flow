@@ -21,5 +21,6 @@ namespace MoneyFlow.Ledger.Domain.ValueObjects.Accounts
 
         public override string ToString() => Value.ToString();
         public static implicit operator Guid(AccountId value) => value.Value;
+        public static implicit operator string(AccountId value) => value.ToString();
     }
 }
