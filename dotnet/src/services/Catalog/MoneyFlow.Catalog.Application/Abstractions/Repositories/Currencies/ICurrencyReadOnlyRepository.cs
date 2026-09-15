@@ -1,7 +1,7 @@
 using Shared.Kernel.Abstractions;
-using MoneyFlow.Catalog.Domain.Models;
+using Shared.Catalog.Contracts.Response;
 
 namespace MoneyFlow.Catalog.Application.Abstractions.Repositories.Currencies
 {
-    public interface ICurrencyReadOnlyRepository : IReadOnlyRepository<Currency>;
+    public interface ICurrencyReadOnlyRepository : IReadOnlyRepository<CurrencyResponse>;
 }

@@ -1,9 +1,9 @@
 using Shared.Kernel.Abstractions;
-using MoneyFlow.Ledger.Domain.Models;
+using Shared.Ledger.Contracts.Accounts.Response;
 
 namespace MoneyFlow.Ledger.Application.Abstractions.Repositories.Accounts
 {
-    public interface IAccountReadOnlyRepository : IReadOnlyRepository<Account>
+    public interface IAccountReadOnlyRepository : IReadOnlyRepository<AccountResponse>
     {
         
     }

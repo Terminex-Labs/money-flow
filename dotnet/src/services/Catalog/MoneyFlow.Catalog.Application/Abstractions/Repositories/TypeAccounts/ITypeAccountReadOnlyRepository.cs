@@ -1,9 +1,9 @@
 using Shared.Kernel.Abstractions;
-using MoneyFlow.Catalog.Domain.Models;
+using Shared.Catalog.Contracts.Response;
 
 namespace MoneyFlow.Catalog.Application.Abstractions.Repositories.TypeAccounts
 {
-    public interface ITypeAccountReadOnlyRepository : IReadOnlyRepository<TypeAccount>
+    public interface ITypeAccountReadOnlyRepository : IReadOnlyRepository<TypeAccountResponse>
     {
         
     }
