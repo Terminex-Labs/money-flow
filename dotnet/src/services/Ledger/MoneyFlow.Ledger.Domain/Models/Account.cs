@@ -1,4 +1,7 @@
+using Shared.Kernel.Errors;
+using Terminex.Common.Results;
 using Shared.Kernel.Primitives;
+using Shared.Kernel.Exceptions;
 using Shared.Kernel.ValueObjects;
 using MoneyFlow.Ledger.Domain.ValueObjects.Accounts;
 
@@ -24,5 +27,13 @@ namespace MoneyFlow.Ledger.Domain.Models
 
         public static Account Create(AccountName name, TypeAccountId typeAccountId, CurrencyId currencyId, Money balance, bool isActive)
             => new (name, typeAccountId, currencyId, balance, isActive);
+
+        public void UpdateName(AccountName name)
+        {
+            if (!IsActive)
+                throw new DomainException(Error.New(AppErrors.IncorrectOperation, "Невозможно обновить не активный счет!"));
+
+            Name = name;
+        }
     }
 }
