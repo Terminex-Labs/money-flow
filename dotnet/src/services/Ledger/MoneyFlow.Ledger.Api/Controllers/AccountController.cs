@@ -3,6 +3,7 @@ using Shared.Api.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Ledger.Contracts.Accounts.Request;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Create;
+using MoneyFlow.Ledger.Application.Features.Accounts.Queries.All;
 
 namespace MoneyFlow.Ledger.Api.Controllers
 {
@@ -16,6 +17,20 @@ namespace MoneyFlow.Ledger.Api.Controllers
             var command = new CreateAccountCommand(request.Name, Guid.Parse(request.TypeAccountId), Guid.Parse(request.CurrencyId), request.Balance, request.IsActive);
 
             var result = await mediator.Send(command, ct);
+
+            return result.Match
+            (
+                onSuccess: () => Ok(result.Value),
+                onFailure: error => this.MapActionResult(error)
+            );
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll(CancellationToken ct = default)
+        {
+            var query = new GetAllAccountQuery();
+
+            var result = await mediator.Send(query, ct);
 
             return result.Match
             (
