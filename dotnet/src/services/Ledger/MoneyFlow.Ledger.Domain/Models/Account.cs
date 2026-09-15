@@ -35,5 +35,7 @@ namespace MoneyFlow.Ledger.Domain.Models
 
             Name = name;
         }
+
+        public void Freeze() => IsActive = false;
     }
 }
