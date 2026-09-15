@@ -10,5 +10,6 @@ namespace Shared.Kernel.Errors
         public static readonly ErrorCode Duplicate = ErrorCode.Custom(nameof(Duplicate), 10004);
         public static readonly ErrorCode SessionExpired = ErrorCode.Custom(nameof(SessionExpired), 10005);
         public static readonly ErrorCode IncorrectValue = ErrorCode.Custom(nameof(IncorrectValue), 10006);
+        public static readonly ErrorCode IncorrectOperation = ErrorCode.Custom(nameof(IncorrectOperation), 10007);
     }
 }
