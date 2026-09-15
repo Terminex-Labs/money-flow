@@ -7,6 +7,7 @@ using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Create;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Freeze;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Unfreeze;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.UpdateName;
+using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Delete;
 
 namespace MoneyFlow.Ledger.Api.Controllers
 {
@@ -74,6 +75,20 @@ namespace MoneyFlow.Ledger.Api.Controllers
         public async Task<IActionResult> Unfreeze([FromRoute] Guid id, CancellationToken ct = default)
         {
             var command = new UnfreezeAccountCommand(id);
+
+            var result = await mediator.Send(command, ct);
+
+            return result.Match
+            (
+                onSuccess: () => Ok(),
+                onFailure: error => this.MapActionResult(error)
+            );
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken ct = default)
+        {
+            var command = new DeleteAccountCommand(id);
 
             var result = await mediator.Send(command, ct);
 
