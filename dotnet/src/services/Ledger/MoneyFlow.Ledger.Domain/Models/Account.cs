@@ -13,15 +13,16 @@ namespace MoneyFlow.Ledger.Domain.Models
         public bool IsActive { get; private set; }
 
         private Account() { }
-        private Account(AccountName name, TypeAccountId typeAccountId, Money balance, bool isActive) : base(AccountId.New)
+        private Account(AccountName name, TypeAccountId typeAccountId, CurrencyId currencyId, Money balance, bool isActive) : base(AccountId.New)
         {
             Name = name;
             TypeAccountId = typeAccountId;
+            CurrencyId = currencyId;
             Balance = balance;
             IsActive = isActive;
         }
 
-        public static Account Create(AccountName name, TypeAccountId typeAccountId, Money balance, bool isActive)
-            => new (name, typeAccountId, balance, isActive);
+        public static Account Create(AccountName name, TypeAccountId typeAccountId, CurrencyId currencyId, Money balance, bool isActive)
+            => new (name, typeAccountId, currencyId, balance, isActive);
     }
 }
