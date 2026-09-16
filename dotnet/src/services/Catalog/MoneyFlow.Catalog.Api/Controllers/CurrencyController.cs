@@ -5,6 +5,7 @@ using Shared.Catalog.Contracts.Request;
 using MoneyFlow.Catalog.Application.Features.Currencies.Queries.All;
 using MoneyFlow.Catalog.Application.Features.Currencies.Commands.Create;
 using MoneyFlow.Catalog.Application.Features.Currencies.Commands.Update;
+using MoneyFlow.Catalog.Application.Features.Currencies.Commands.Delete;
 
 namespace MoneyFlow.Catalog.Api.Controllers
 {
@@ -44,6 +45,20 @@ namespace MoneyFlow.Catalog.Api.Controllers
         public async Task<IActionResult> Update([FromBody] UpdateCurrencyRequest request, CancellationToken ct = default)
         {
             var command = new UpdateCurrencyCommand(Guid.Parse(request.Id), request.ShortName, request.Unicode, request.FullName);
+
+            var result = await mediator.Send(command, ct);
+
+            return result.Match
+            (
+                onSuccess: () => Ok(),
+                onFailure: error => this.MapActionResult(error)
+            );
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken ct = default)
+        {
+            var command = new DeleteCurrencyCommand(id);
 
             var result = await mediator.Send(command, ct);
 
