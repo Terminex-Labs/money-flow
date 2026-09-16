@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Catalog.Contracts.Request;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Queries.All;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Commands.Create;
+using MoneyFlow.Catalog.Application.Features.TypeAccounts.Commands.Update;
 
 namespace MoneyFlow.Catalog.Api.Controllers
 {
@@ -35,6 +36,20 @@ namespace MoneyFlow.Catalog.Api.Controllers
             return result.Match
             (
                 onSuccess: () => Ok(result.Value),
+                onFailure: error => this.MapActionResult(error)
+            );
+        }
+
+        [HttpPatch]
+        public async Task<IActionResult> Update([FromBody] UpdateTypeAccountRequest request, CancellationToken ct = default)
+        {
+            var command = new UpdateTypeAccountCommand(Guid.Parse(request.Id), request.Name);
+
+            var result = await mediator.Send(command, ct);
+
+            return result.Match
+            (
+                onSuccess: () => Ok(),
                 onFailure: error => this.MapActionResult(error)
             );
         }

@@ -12,5 +12,7 @@ namespace MoneyFlow.Catalog.Domain.Models
         private TypeAccount(TypeAccountName name) : base(TypeAccountId.New) => Name = name;
 
         public static TypeAccount Create(TypeAccountName name) => new (name);
+
+        public void UpdateName(TypeAccountName name) => Name = name;
     }
 }
