@@ -36,7 +36,7 @@ namespace MoneyFlow.Ledger.Infrastructure.Persistence.Configurations
                 .HasColumnName("balance")
                 .HasConversion(inDB => inDB.Value, outDB => Money.Create(outDB));
 
-            builder.Property(x => x.IsActive).HasColumnName("isActive");
+            builder.Property(x => x.IsActive).HasColumnName("is_active");
         }
     }
 }
