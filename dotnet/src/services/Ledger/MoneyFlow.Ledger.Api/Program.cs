@@ -1,11 +1,19 @@
 using Serilog;
 using Shared.Logging;
+using MoneyFlow.Ledger.Application.Extensions;
+using MoneyFlow.Ledger.Infrastructure.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+IConfiguration configuration = builder.Configuration;
 
 builder.Host.AddSerilogLogger();
 
-builder.Services.AddOpenApi();
+builder.Services
+    .AddOpenApi()
+    .UseMediatR()
+    .UseRepository()
+    .UsePostgres(configuration)
+    .UseDapper(configuration);
 
 var app = builder.Build();
 
