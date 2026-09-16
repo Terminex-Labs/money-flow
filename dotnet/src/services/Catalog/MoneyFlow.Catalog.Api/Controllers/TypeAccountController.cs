@@ -5,6 +5,7 @@ using Shared.Catalog.Contracts.Request;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Queries.All;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Commands.Create;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Commands.Update;
+using MoneyFlow.Catalog.Application.Features.TypeAccounts.Commands.Delete;
 
 namespace MoneyFlow.Catalog.Api.Controllers
 {
@@ -44,6 +45,20 @@ namespace MoneyFlow.Catalog.Api.Controllers
         public async Task<IActionResult> Update([FromBody] UpdateTypeAccountRequest request, CancellationToken ct = default)
         {
             var command = new UpdateTypeAccountCommand(Guid.Parse(request.Id), request.Name);
+
+            var result = await mediator.Send(command, ct);
+
+            return result.Match
+            (
+                onSuccess: () => Ok(),
+                onFailure: error => this.MapActionResult(error)
+            );
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken ct = default)
+        {
+            var command = new DeleteTypeAccountCommand(id);
 
             var result = await mediator.Send(command, ct);
 
