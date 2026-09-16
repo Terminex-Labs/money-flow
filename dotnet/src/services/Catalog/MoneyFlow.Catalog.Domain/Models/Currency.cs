@@ -20,5 +20,14 @@ namespace MoneyFlow.Catalog.Domain.Models
 
         public static Currency Create(ShortName shortName, CurrencyUnicode unicode, FullName fullName) 
             => new (shortName, unicode, fullName);
+
+        public void UpdateShortName(ShortName shortName)
+            => ShortName = shortName;
+
+        public void UpdateUnicode(CurrencyUnicode unicode)
+            => Unicode = unicode;
+
+        public void UpdateFullName(FullName fullName)
+            => FullName = fullName;
     }
 }

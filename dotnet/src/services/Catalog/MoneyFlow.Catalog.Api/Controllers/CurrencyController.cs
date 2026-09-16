@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Catalog.Contracts.Request;
 using MoneyFlow.Catalog.Application.Features.Currencies.Queries.All;
 using MoneyFlow.Catalog.Application.Features.Currencies.Commands.Create;
+using MoneyFlow.Catalog.Application.Features.Currencies.Commands.Update;
 
 namespace MoneyFlow.Catalog.Api.Controllers
 {
@@ -35,6 +36,20 @@ namespace MoneyFlow.Catalog.Api.Controllers
             return result.Match
             (
                 onSuccess: () => Ok(result.Value),
+                onFailure: error => this.MapActionResult(error)
+            );
+        }
+
+        [HttpPatch]
+        public async Task<IActionResult> Update([FromBody] UpdateCurrencyRequest request, CancellationToken ct = default)
+        {
+            var command = new UpdateCurrencyCommand(Guid.Parse(request.Id), request.ShortName, request.Unicode, request.FullName);
+
+            var result = await mediator.Send(command, ct);
+
+            return result.Match
+            (
+                onSuccess: () => Ok(),
                 onFailure: error => this.MapActionResult(error)
             );
         }
