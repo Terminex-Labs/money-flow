@@ -11,7 +11,7 @@ namespace MoneyFlow.Catalog.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/type/account")]
-    public class TypeAccountController(IMediator mediator) : Controller
+    public sealed class TypeAccountController(IMediator mediator) : Controller
     {
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateTypeAccountRequest request, CancellationToken ct = default)
@@ -55,7 +55,7 @@ namespace MoneyFlow.Catalog.Api.Controllers
             );
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken ct = default)
         {
             var command = new DeleteTypeAccountCommand(id);

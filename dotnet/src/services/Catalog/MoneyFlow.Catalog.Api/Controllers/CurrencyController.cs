@@ -11,7 +11,7 @@ namespace MoneyFlow.Catalog.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/currency")]
-    internal sealed class CurrencyController(IMediator mediator) : Controller
+    public sealed class CurrencyController(IMediator mediator) : Controller
     {
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCurrencyRequest request, CancellationToken ct = default)
@@ -55,7 +55,7 @@ namespace MoneyFlow.Catalog.Api.Controllers
             );
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken ct = default)
         {
             var command = new DeleteCurrencyCommand(id);
