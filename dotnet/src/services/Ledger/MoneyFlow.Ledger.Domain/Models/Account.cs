@@ -9,6 +9,7 @@ namespace MoneyFlow.Ledger.Domain.Models
 {
     public sealed class Account : Aggregate<AccountId>
     {
+        public UserId UserId { get; private set; }
         public AccountName Name { get; private set; }
         public TypeAccountId TypeAccountId { get; private set; }
         public CurrencyId CurrencyId { get; private set; }
@@ -16,8 +17,9 @@ namespace MoneyFlow.Ledger.Domain.Models
         public bool IsActive { get; private set; }
 
         private Account() { }
-        private Account(AccountName name, TypeAccountId typeAccountId, CurrencyId currencyId, Money balance, bool isActive) : base(AccountId.New)
+        private Account(UserId userId, AccountName name, TypeAccountId typeAccountId, CurrencyId currencyId, Money balance, bool isActive) : base(AccountId.New)
         {
+            UserId = userId;
             Name = name;
             TypeAccountId = typeAccountId;
             CurrencyId = currencyId;
@@ -25,8 +27,8 @@ namespace MoneyFlow.Ledger.Domain.Models
             IsActive = isActive;
         }
 
-        public static Account Create(AccountName name, TypeAccountId typeAccountId, CurrencyId currencyId, Money balance, bool isActive)
-            => new (name, typeAccountId, currencyId, balance, isActive);
+        public static Account Create(UserId userId, AccountName name, TypeAccountId typeAccountId, CurrencyId currencyId, Money balance, bool isActive)
+            => new (userId, name, typeAccountId, currencyId, balance, isActive);
 
         public void UpdateName(AccountName name)
         {

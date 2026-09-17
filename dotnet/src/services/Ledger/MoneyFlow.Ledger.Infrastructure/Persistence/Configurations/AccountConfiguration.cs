@@ -19,6 +19,10 @@ namespace MoneyFlow.Ledger.Infrastructure.Persistence.Configurations
                 .ValueGeneratedNever()
                 .HasConversion(inDB => inDB.Value, outDB => AccountId.Create(outDB));
 
+            builder.Property(x => x.UserId)
+                .HasColumnName("user_id")
+                .HasConversion(inDB => inDB.Value, outDB => UserId.Create(outDB));
+
             builder.Property(x => x.Name)
                 .HasColumnName("name")
                 .UseCollation(PostgresConstants.COLLATION_NAME)

@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Ledger.Contracts.Accounts.Request;
 using MoneyFlow.Ledger.Application.Features.Accounts.Queries.All;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Create;
+using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Delete;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Freeze;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Unfreeze;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.UpdateName;
-using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Delete;
 
 namespace MoneyFlow.Ledger.Api.Controllers
 {
@@ -18,7 +18,7 @@ namespace MoneyFlow.Ledger.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateAccountRequest request, CancellationToken ct = default)
         {
-            var command = new CreateAccountCommand(request.Name, Guid.Parse(request.TypeAccountId), Guid.Parse(request.CurrencyId), request.Balance, request.IsActive);
+            var command = new CreateAccountCommand(Guid.Parse(request.UserId), request.Name, Guid.Parse(request.TypeAccountId), Guid.Parse(request.CurrencyId), request.Balance, request.IsActive);
 
             var result = await mediator.Send(command, ct);
 
@@ -85,7 +85,7 @@ namespace MoneyFlow.Ledger.Api.Controllers
             );
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken ct = default)
         {
             var command = new DeleteAccountCommand(id);

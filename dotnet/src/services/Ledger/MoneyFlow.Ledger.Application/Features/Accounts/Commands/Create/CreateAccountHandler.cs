@@ -15,6 +15,7 @@ namespace MoneyFlow.Ledger.Application.Features.Accounts.Commands.Create
         {
             var account = Account.Create
             (
+                UserId.Create(request.UserId),
                 AccountName.Create(request.Name),
                 TypeAccountId.Create(request.TypeAccountId),
                 CurrencyId.Create(request.CurrencyId),
