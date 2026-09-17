@@ -10,7 +10,7 @@ namespace MoneyFlow.Catalog.Domain.ValueObjects.TypesAccounts
     {
         public string Value { get; }
 
-        private readonly static string pattern = @"^[a-zA-Zа-яА-ЯёЁ]+$";
+        private readonly static string pattern = @"^[a-zA-Zа-яА-ЯёЁ ]+$";
 
         private TypeAccountName(string value) => Value = value;
 

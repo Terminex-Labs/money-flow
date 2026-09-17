@@ -10,7 +10,7 @@ namespace MoneyFlow.Ledger.Domain.ValueObjects.Accounts
     {
         public string Value { get; }
 
-        private readonly static string pattern = @"^[a-zA-Zа-яА-ЯёЁ]+$";
+        private readonly static string pattern = @"^[a-zA-Zа-яА-ЯёЁ ]+$";
 
         private AccountName(string value) => Value = value;
 

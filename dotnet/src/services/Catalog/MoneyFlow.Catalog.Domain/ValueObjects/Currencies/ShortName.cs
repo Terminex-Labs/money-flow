@@ -11,7 +11,7 @@ namespace MoneyFlow.Catalog.Domain.ValueObjects.Currencies
         public string Value { get; }
         
         public const int MAX_LENGTH = 3;
-        private readonly static string pattern = @"^[A-Z]+$";
+        private readonly static string pattern = @"^[a-zA-Z ]+$";
 
         private ShortName(string value) => Value = value;
 
