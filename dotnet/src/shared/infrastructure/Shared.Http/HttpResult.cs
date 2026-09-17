@@ -15,12 +15,13 @@ namespace Shared.Http
             try
             {
                 response = await func(ct);
+                response.EnsureSuccessStatusCode();
 
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorBody = await response.Content.ReadAsStringAsync(ct);
-                    return new Error(AppErrors.BackendHttp, $"HTTP {(int)response.StatusCode}: {errorBody}");
-                }
+                // if (!response.IsSuccessStatusCode)
+                // {
+                //     var errorBody = await response.Content.ReadAsStringAsync(ct);
+                //     return new Error(AppErrors.BackendHttp, $"HTTP {(int)response.StatusCode}: {errorBody}");
+                // }
 
                 if (typeof(TResponse) == typeof(Stream))
                 {
