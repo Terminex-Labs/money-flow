@@ -7,6 +7,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
 
 builder.Host.AddSerilogLogger();
+builder.Services.AddControllers();
 
 builder.Services
     .AddOpenApi()
@@ -24,6 +25,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseSerilogRequestLogging();
+app.MapControllers();
 
 app.Logger.LogInformation("Приложение успешно запущено и готово к работе!");
 
