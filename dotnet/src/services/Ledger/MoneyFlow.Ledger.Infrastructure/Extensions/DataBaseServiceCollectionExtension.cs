@@ -21,6 +21,7 @@ namespace MoneyFlow.Ledger.Infrastructure.Extensions
 
         public static IServiceCollection UseDapper(this IServiceCollection services, IConfiguration configuration)
         {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             services.AddSingleton<IDbConnection>(serviceProvider => new NpgsqlConnection(configuration["DataBase:ConnectionStrings:Postgres"]));
 
             return services;
