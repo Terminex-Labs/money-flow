@@ -5,10 +5,10 @@ using Terminex.Security.Abstraction.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Medallion.Threading.Redis;
 using Medallion.Threading;
-using MoneyFlow.Authentication.Client;
 using Shared.Authentication.Contracts.Requests;
 using Terminex.Security.Configuration.Crypto;
 using MoneyFlow.Bff.Services;
+using Shared.Client.Abstraction;
 
 namespace MoneyFlow.Bff.Extensions
 {
