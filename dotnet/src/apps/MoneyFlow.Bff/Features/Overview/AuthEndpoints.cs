@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using MoneyFlow.Bff.Helpers;
 using MoneyFlow.Bff.Services;
-using MoneyFlow.Files.Client;
-using MoneyFlow.IdentityHub.Client;
+using Microsoft.AspNetCore.Mvc;
+using Shared.Client.Abstraction;
 using Shared.Files.Contracts.Request;
 using MoneyFlow.Bff.Features.Overview.Models;
 
