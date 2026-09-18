@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\shared\abstractions\Shared.Client.Abstraction\Shared.Client.Abstraction.csproj" />
     <ProjectReference Include="..\..\shared\contracts\Shared.IdentityHub.Contracts\Shared.IdentityHub.Contracts.csproj" />
     <ProjectReference Include="..\..\shared\infrastructure\Shared.Http\Shared.Http.csproj" />
   </ItemGroup>

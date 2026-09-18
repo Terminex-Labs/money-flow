@@ -34,6 +34,7 @@
   <Folder Name="/src/shared/" />
   <Folder Name="/src/shared/abstractions/">
     <Project Path="src/shared/abstractions/Shared.Cache.Abstraction/Shared.Cache.Abstraction.csproj" />
+    <Project Path="src/shared/abstractions/Shared.Client.Abstraction/Shared.Client.Abstraction.csproj" />
     <Project Path="src/shared/abstractions/Shared.Messaging.Abstraction/Shared.Messaging.Abstraction.csproj" />
   </Folder>
   <Folder Name="/src/shared/contracts/">
