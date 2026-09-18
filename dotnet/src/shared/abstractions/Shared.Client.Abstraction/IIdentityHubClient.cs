@@ -1,7 +1,7 @@
 using Terminex.Common.Results;
 using Shared.IdentityHub.Contracts.Response;
 
-namespace MoneyFlow.IdentityHub.Client
+namespace Shared.Client.Abstraction
 {
     public interface IIdentityHubClient
     {

@@ -2,6 +2,7 @@ using Shared.Http;
 using System.Text.Json;
 using System.Net.Http.Json;
 using Terminex.Common.Results;
+using Shared.Client.Abstraction;
 using Microsoft.Extensions.Options;
 using Shared.Authentication.Contracts.Requests;
 using Shared.Authentication.Contracts.Responses;

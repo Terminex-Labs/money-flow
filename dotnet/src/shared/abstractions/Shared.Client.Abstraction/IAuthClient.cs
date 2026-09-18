@@ -2,7 +2,7 @@ using Terminex.Common.Results;
 using Shared.Authentication.Contracts.Requests;
 using Shared.Authentication.Contracts.Responses;
 
-namespace MoneyFlow.Authentication.Client
+namespace Shared.Client.Abstraction
 {
     public interface IAuthClient
     {
