@@ -1,8 +1,11 @@
 using Serilog;
 using Shared.Logging;
+using System.Reflection;
+using MoneyFlow.Catalog.Api.Extensions;
 using MoneyFlow.Catalog.Application.Extensions;
 using MoneyFlow.Catalog.Infrastructure.Extensions;
 
+var assembly = Assembly.GetExecutingAssembly();
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
 
@@ -26,6 +29,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseSerilogRequestLogging();
 app.MapControllers();
+app.UseEndpoints(assembly);
 
 app.Logger.LogInformation("Приложение успешно запущено и готово к работе!");
 
