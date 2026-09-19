@@ -4,5 +4,5 @@ using Shared.Ledger.Contracts.Accounts.Response;
 
 namespace MoneyFlow.Ledger.Application.Features.Accounts.Queries.All
 {
-    public sealed record GetAllAccountQuery : IRequest<Result<List<AccountResponse>>>;
+    public sealed record GetAllAccountQuery(Guid UserId) : IRequest<Result<List<AccountResponse>>>;
 }

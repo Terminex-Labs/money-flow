@@ -1,11 +1,10 @@
 using Serilog;
 using Shared.Logging;
-using System.Reflection;
-using MoneyFlow.Catalog.Api.Extensions;
+using Shared.Api.Extensions;
 using MoneyFlow.Catalog.Application.Extensions;
 using MoneyFlow.Catalog.Infrastructure.Extensions;
+using MoneyFlow.Catalog.Api.Constants;
 
-var assembly = Assembly.GetExecutingAssembly();
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
 
@@ -14,6 +13,8 @@ builder.Services.AddControllers();
 
 builder.Services
     .AddOpenApi()
+    .UseAuthentication(configuration)
+    .AddAuthorization(options => options.AddPolicy(AuthorizationPolicyConstants.ADMIN_ONLY, policy => policy.RequireRole("Admin")))
     .UseMediatR()
     .UseRepository()
     .UsePostgres(configuration)
@@ -27,9 +28,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseSerilogRequestLogging();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
-app.UseEndpoints(assembly);
 
 app.Logger.LogInformation("Приложение успешно запущено и готово к работе!");
 

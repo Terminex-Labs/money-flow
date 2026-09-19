@@ -4,5 +4,5 @@ using Terminex.Common.Primitives;
 
 namespace MoneyFlow.Ledger.Application.Features.Accounts.Commands.Freeze
 {
-    public sealed record FreezeAccountCommand(Guid Id) : IRequest<Result<Nothing>>;
+    public sealed record FreezeAccountCommand(Guid UserId, Guid Id) : IRequest<Result<Nothing>>;
 }

@@ -4,5 +4,5 @@ using Terminex.Common.Primitives;
 
 namespace MoneyFlow.Ledger.Application.Features.Accounts.Commands.UpdateName
 {
-    public sealed record UpdateAccountNameCommand(Guid Id, string Name) : IRequest<Result<Nothing>>;
+    public sealed record UpdateAccountNameCommand(Guid UserId, Guid Id, string Name) : IRequest<Result<Nothing>>;
 }

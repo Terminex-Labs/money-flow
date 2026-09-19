@@ -9,7 +9,7 @@ namespace MoneyFlow.Ledger.Application.Features.Accounts.Queries.All
     {
         public async Task<Result<List<AccountResponse>>> Handle(GetAllAccountQuery request, CancellationToken cancellationToken)
         {
-            var accounts = await repository.GetAllAsync(cancellationToken);
+            var accounts = await repository.GetAllAsync(request.UserId, cancellationToken);
 
             return accounts.ToList();
         }

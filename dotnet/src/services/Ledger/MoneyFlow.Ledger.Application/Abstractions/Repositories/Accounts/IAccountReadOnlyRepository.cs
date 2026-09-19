@@ -5,6 +5,6 @@ namespace MoneyFlow.Ledger.Application.Abstractions.Repositories.Accounts
 {
     public interface IAccountReadOnlyRepository : IReadOnlyRepository<AccountResponse>
     {
-        
+        Task<List<AccountResponse>> GetAllAsync(Guid userId, CancellationToken ct);
     }
 }

@@ -1,7 +1,9 @@
 using MediatR;
 using Shared.Api.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using MoneyFlow.Catalog.Api.Constants;
 using Shared.Catalog.Contracts.Request;
+using Microsoft.AspNetCore.Authorization;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Queries.All;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Commands.Create;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Commands.Update;
@@ -14,6 +16,7 @@ namespace MoneyFlow.Catalog.Api.Controllers
     public sealed class TypeAccountController(IMediator mediator) : Controller
     {
         [HttpPost]
+        [Authorize(AuthorizationPolicyConstants.ADMIN_ONLY)]
         public async Task<IActionResult> Create([FromBody] CreateTypeAccountRequest request, CancellationToken ct = default)
         {
             var command = new CreateTypeAccountCommand(request.Name);
@@ -42,6 +45,7 @@ namespace MoneyFlow.Catalog.Api.Controllers
         }
 
         [HttpPatch]
+        [Authorize(AuthorizationPolicyConstants.ADMIN_ONLY)]
         public async Task<IActionResult> Update([FromBody] UpdateTypeAccountRequest request, CancellationToken ct = default)
         {
             var command = new UpdateTypeAccountCommand(Guid.Parse(request.Id), request.Name);
@@ -56,6 +60,7 @@ namespace MoneyFlow.Catalog.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(AuthorizationPolicyConstants.ADMIN_ONLY)]
         public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken ct = default)
         {
             var command = new DeleteTypeAccountCommand(id);
