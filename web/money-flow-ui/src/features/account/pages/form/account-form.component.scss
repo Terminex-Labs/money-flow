@@ -1,0 +1,79 @@
+@use '../../../../variables' as *;
+@use '../../../../styles/input' as *;
+
+.main {
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        font-size: 35px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    &__form {
+        
+        &__field {
+            display: flex;
+            flex-direction: column;
+
+            span {
+                
+                margin-bottom: 5px;
+            }
+
+            .input {
+                margin-bottom: 10px;
+            }
+
+            &--toggle {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                padding: 16px 20px;
+                background: $bg-input;
+                border: 1px solid $color-border;
+                border-radius: 12px;
+                margin-bottom: 10px;
+
+                &:hover {
+                    border-color: $color-border-hover;
+                }
+
+                .toggle-content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    flex: 1;
+
+                    &__title {
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: $text-input;
+                        margin-bottom: 0;
+                    }
+
+                    &__description {
+                        font-size: 14px;
+                        color: $text-placeholder;
+                        line-height: 1.4;
+                    }
+                }
+
+                app-toggle {
+                    flex-shrink: 0;
+                }
+            }
+        }
+    }
+
+    &__add {
+        margin-top: 20px;
+        background: #e8e8e8;
+        align-self: flex-start;
+        width: 100px;
+        font-weight: bold;
+    }
+}

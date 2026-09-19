@@ -1,41 +1,36 @@
-var builder = WebApplication.CreateBuilder(args);
+using Serilog;
+using Shared.Logging;
+using System.Reflection;
+using MoneyFlow.Ledger.Api.Extensions;
+using MoneyFlow.Ledger.Application.Extensions;
+using MoneyFlow.Ledger.Infrastructure.Extensions;
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+var assembly = Assembly.GetExecutingAssembly();
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+IConfiguration configuration = builder.Configuration;
+
+builder.Host.AddSerilogLogger();
+builder.Services.AddControllers();
+
+builder.Services
+    .AddOpenApi()
+    .UseMediatR()
+    .UseRepository()
+    .UsePostgres(configuration)
+    .UseDapper(configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
+app.UseSerilogRequestLogging();
+app.MapControllers();
+app.UseEndpoints(assembly);
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.Logger.LogInformation("Приложение успешно запущено и готово к работе!");
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -1,0 +1,111 @@
+@use '../../../../variables' as *;
+
+.main {
+    padding: 20px;
+
+    &__topbar {
+        display: flex;
+        align-items: center;
+
+        &__spacer {
+            flex: 1;
+        }
+    }
+
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 16px;
+    }
+
+    &__empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 48px;
+        color: $text-secondary;
+        font-size: 16px;
+    }
+}
+
+.account-card {
+    background: $bg-main;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    border: 1px solid $color-border;
+
+    &:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+        transform: translateY(-2px);
+        border-color: $color-border-hover;
+    }
+
+    &--inactive {
+        opacity: 0.6;
+        filter: grayscale(0.3);
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid $color-border;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: $text-primary;
+    }
+
+    &__status {
+        padding: 4px 12px;
+        border-radius: 16px;
+        font-size: 12px;
+        font-weight: 500;
+
+        &--active {
+            background: rgba(34, 197, 94, 0.2);
+            color: $color-success;
+        }
+
+        &--inactive {
+            background: rgba(239, 68, 68, 0.2);
+            color: $color-error;
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &__info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__label {
+        font-size: 14px;
+        color: $text-secondary;
+    }
+
+    &__value {
+        font-size: 14px;
+        font-weight: 500;
+        color: $text-primary;
+        word-break: break-all;
+    }
+
+    &__balance {
+        font-size: 16px;
+        font-weight: 600;
+        color: $color-accent;
+    }
+}

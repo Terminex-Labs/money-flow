@@ -1,0 +1,76 @@
+@use '../variables' as *;
+
+.btn {
+    appearance: none;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    // Кнопка с иконкой (прозрачный фон)
+    &--icon {
+        background: transparent;
+        border: none;
+        padding: 6px;
+        color: inherit;
+        
+        &:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        &:focus-visible {
+            outline: 2px solid $color-accent;
+            outline-offset: 2px;
+        }
+    }
+
+    // Кнопка добавления (белая)
+    &--add {
+        background: $btn-bg-add;
+        color: #000;
+        border-color: #444;
+        
+        &:hover:not(:disabled) {
+            background: $btn-bg-add-hover;
+        }
+        
+        &:focus-visible {
+            outline: 2px solid $color-accent;
+            outline-offset: 2px;
+        }
+    }
+
+    // Основная кнопка (фон bg-main)
+    &--primary {
+        background: $btn-bg-main;
+        color: inherit;
+        border-color: #444;
+        
+        &:hover:not(:disabled) {
+            background: $btn-bg-main-hover;
+        }
+        
+        &:focus-visible {
+            outline: 2px solid $color-accent;
+            outline-offset: 2px;
+        }
+    }
+}

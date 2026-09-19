@@ -1,0 +1,28 @@
+/* Фон */
+$bg-main: #161515;              // Основной фон страницы
+// $bg-main: #121212;             // Основной фон страницы
+$bg-content: #292a2c;           // Основной цвет контента
+// $bg-form: #151e32;             // Фон карточек/форм
+$bg-input: #161515;               // Фон полей ввода
+// $bg-input: #1e293b;               // Фон полей ввода
+
+/* Кнопки */
+$btn-bg-add: white;
+$btn-bg-add-hover: #DCDCDC;
+$btn-bg-main: #161515;
+$btn-bg-main-hover: #282828;
+
+/* Текст */
+$text-primary: #f8fafc;        // Основной текст, заголовки
+$text-secondary: #94a3b8;      // Второстепенный текст, подписи
+$text-input: #e2e8f0;          // Текст внутри input
+$text-placeholder: #64748b;    // Placeholder в input
+
+/* Акценты и состояния */
+$color-accent: #3b82f6;        // Фокус, ссылки, активные элементы
+$color-error: #ef4444;         // Ошибки валидации
+$color-border: #334155;        // Границы полей
+$color-border-hover: #475569;
+
+$color-warning: #f59e0b;       // ← добавить
+$color-success: #22c55e;       // ← заодно, для кнопки "Продолжить"

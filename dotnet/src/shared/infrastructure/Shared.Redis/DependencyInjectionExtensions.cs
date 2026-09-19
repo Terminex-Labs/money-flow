@@ -7,7 +7,7 @@ namespace Shared.Redis
 {
     public static class DependencyInjectionExtensions
     {
-        public static IServiceCollection AddCashService(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection UseCache(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<RedisOptions>(option => configuration.GetSection(RedisOptions.SectionName));
             services.AddSingleton<IConnectionMultiplexer>(sp =>

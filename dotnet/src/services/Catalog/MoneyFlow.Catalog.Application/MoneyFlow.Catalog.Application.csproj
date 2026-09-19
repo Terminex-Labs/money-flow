@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Terminex.Common" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\shared\contracts\Shared.Catalog.Contracts\Shared.Catalog.Contracts.csproj" />
     <ProjectReference Include="..\..\..\shared\core\Shared.Application\Shared.Application.csproj" />
     <ProjectReference Include="..\..\..\shared\core\Shared.Kernel\Shared.Kernel.csproj" />
