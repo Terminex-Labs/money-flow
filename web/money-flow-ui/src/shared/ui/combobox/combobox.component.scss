@@ -1,0 +1,110 @@
+@use '../../../variables' as *;
+
+.combobox-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.combobox-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $text-input;
+    background: $bg-input;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover:not(.disabled) {
+        border-color: $color-border-hover;
+    }
+
+    &:focus-visible {
+        outline: none;
+        border-color: $color-accent;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    &.ng-invalid.ng-touched:not(:focus-visible) {
+        border-color: $color-error;
+    }
+
+    &.ng-invalid.ng-touched:focus-visible {
+        border-color: $color-error;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+}
+
+.combobox-value {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.placeholder {
+        color: $text-placeholder;
+    }
+}
+
+.combobox-arrow {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: transform 0.2s ease;
+
+    .combobox-trigger[aria-expanded="true"] & {
+        transform: rotate(180deg);
+    }
+}
+
+.combobox-dropdown {
+    background: $bg-input;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 4px;
+    margin-top: 0;
+    z-index: 1000;
+    display: block;
+}
+
+.combobox-option {
+    padding: 8px 12px;
+    font-size: 15px;
+    color: $text-input;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover {
+        background-color: rgba(59, 130, 246, 0.08);
+    }
+
+    &.selected {
+        background-color: rgba(59, 130, 246, 0.15);
+        color: $color-accent;
+        font-weight: 500;
+    }
+
+    &:focus-visible {
+        outline: none;
+        background-color: rgba(59, 130, 246, 0.1);
+    }
+}
