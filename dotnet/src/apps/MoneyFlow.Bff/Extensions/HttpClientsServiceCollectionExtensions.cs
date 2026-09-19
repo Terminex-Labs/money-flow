@@ -1,3 +1,4 @@
+using MoneyFlow.Bff.Handlers;
 using MoneyFlow.Files.Client;
 using MoneyFlow.Ledger.Client;
 using MoneyFlow.Catalog.Client;
@@ -18,18 +19,21 @@ namespace MoneyFlow.Bff.Extensions
             string catalogUri = configuration["ServicesUrl:Catalog"].ThrowOrReturn("Строка подключения `ServicesUrl:Catalog` была пуста!");
             string ledgerUri = configuration["ServicesUrl:Ledger"].ThrowOrReturn("Строка подключения `ServicesUrl:Ledger` была пуста!");
 
-            services.AddHttpClient<IAuthClient, AuthClient>(client => client.BaseAddress = new Uri(authUri));
+            services.AddHttpContextAccessor();
+            services.AddTransient<AccessTokenHandler>();
 
-            services.AddHttpClient<IIdentityHubClient, IdentityHubClient>(client => client.BaseAddress = new Uri(identityHubUri));
+            services.AddHttpClient<IAuthClient, AuthClient>(client => client.BaseAddress = new Uri(authUri)).AddHttpMessageHandler<AccessTokenHandler>();
 
-            services.AddHttpClient<IFileClient, FileClient>(client => client.BaseAddress = new Uri(minervaUri));
+            services.AddHttpClient<IIdentityHubClient, IdentityHubClient>(client => client.BaseAddress = new Uri(identityHubUri)).AddHttpMessageHandler<AccessTokenHandler>();
+
+            services.AddHttpClient<IFileClient, FileClient>(client => client.BaseAddress = new Uri(minervaUri)).AddHttpMessageHandler<AccessTokenHandler>();
 
             string catalog = "CatalogService";
-            services.AddHttpClient(catalog, client => client.BaseAddress = new Uri(catalogUri));
+            services.AddHttpClient(catalog, client => client.BaseAddress = new Uri(catalogUri)).AddHttpMessageHandler<AccessTokenHandler>();
             services.AddHttpClient<ICurrencyClient, CurrencyClient>(catalog);
             services.AddHttpClient<ITypeAccountClient, TypeAccountClient>(catalog);
 
-            services.AddHttpClient<IAccountClient, AccountClient>(client => client.BaseAddress = new Uri(ledgerUri));
+            services.AddHttpClient<IAccountClient, AccountClient>(client => client.BaseAddress = new Uri(ledgerUri)).AddHttpMessageHandler<AccessTokenHandler>();
 
             return services;
         }
