@@ -68,7 +68,7 @@ namespace MoneyFlow.Bff.Features.Account
             app.MapPatch($"{_url}/name", async 
                 (
                     HttpContext httpContext, 
-                    [FromBody] UpdateAccountNameRequest request,
+                    [FromBody] Models.UpdateAccountNameRequest request,
                     [FromServices] IAccountClient accountClient, 
                     [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
@@ -78,7 +78,9 @@ namespace MoneyFlow.Bff.Features.Account
                 var accessToken = httpContext.Items["AccessToken"] as string;
                 var dto = jwtReader.Extract(accessToken!);
 
-                var result = await accountClient.UpdateNameAsync(request, ct);
+                var requestUpdate = new UpdateAccountNameRequest(dto.UserId, request.Name);
+
+                var result = await accountClient.UpdateNameAsync(requestUpdate, ct);
 
                 return result.Match
                 (
