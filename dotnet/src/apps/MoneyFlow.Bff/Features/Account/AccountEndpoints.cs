@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
-using MoneyFlow.Bff.Services;
 using Shared.Api.Extensions;
+using MoneyFlow.Bff.Services;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Client.Abstraction;
 using Shared.Ledger.Contracts.Accounts.Request;
 
@@ -44,6 +44,8 @@ namespace MoneyFlow.Bff.Features.Account
                 (
                     HttpContext httpContext, 
                     [FromServices] IAccountClient accountClient, 
+                    [FromServices] ICurrencyClient currencyClient,
+                    [FromServices] ITypeAccountClient typeAccountClient,
                     [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
@@ -52,14 +54,35 @@ namespace MoneyFlow.Bff.Features.Account
                 var accessToken = httpContext.Items["AccessToken"] as string;
                 var dto = jwtReader.Extract(accessToken!);
 
-                var result = await accountClient.GetAllAsync(ct);
+                var resultAccount = await accountClient.GetAllAsync(ct);
+                var resultCurrency = await currencyClient.GetAllAsync(ct);
+                var resultTypeAccount = await typeAccountClient.GetAllAsync(ct);
 
-                return result.Match
+                var response = resultAccount.Value.Select
                 (
-                    onSuccess: () => Results.Ok(result.Value),
+                    account =>
+                    {
+                        var currency = resultCurrency.Value.FirstOrDefault(currency => currency.Id == account.CurrencyId);
+                        var typeAccountName = resultTypeAccount.Value.FirstOrDefault(typeAccount => typeAccount.Id == account.TypeAccountId)?.Name;
+
+                        return new Models.AccountResponse
+                        (
+                            account.Id.ToString(), 
+                            account.Name, 
+                            currency == null ? null : new Models.AccountDataCurrencyResponse(currency.Id.ToString(), currency.ShortName, currency.Unicode, currency.FullName),
+                            typeAccountName,
+                            account.Balance,
+                            account.IsActive
+                        );
+                    } 
+                );
+
+                return resultAccount.Match
+                (
+                    onSuccess: () => Results.Ok(response),
                     onFailure: errors =>
                     {
-                        logger.LogError("Во время выполнения `AccountEndpoints` в `api/v1/account/get`, пришел не удачный ответ от `IAccountClient` в методе `GetAllAsync`! Ошибка: {Errors}", result.StringMessage);
+                        logger.LogError("Во время выполнения `AccountEndpoints` в `api/v1/account/get`, пришел не удачный ответ от `IAccountClient` в методе `GetAllAsync`! Ошибка: {Errors}", resultAccount.StringMessage);
                         return errors.MapToMinimalApiResult();
                     }
                 );
