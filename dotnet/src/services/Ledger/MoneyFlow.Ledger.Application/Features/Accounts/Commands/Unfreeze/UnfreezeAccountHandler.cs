@@ -10,7 +10,7 @@ namespace MoneyFlow.Ledger.Application.Features.Accounts.Commands.Unfreeze
     {
         public async Task<Result<Nothing>> Handle(UnfreezeAccountCommand request, CancellationToken cancellationToken)
         {
-            var maybeAccount = await repository.GetByAsync(account => account.Id == request.Id);
+            var maybeAccount = await repository.GetByAsync(account => account.UserId == request.UserId && account.Id == request.Id);
 
             if (maybeAccount.IsNone)
                 return Error.NotFound("Счет не найден!");

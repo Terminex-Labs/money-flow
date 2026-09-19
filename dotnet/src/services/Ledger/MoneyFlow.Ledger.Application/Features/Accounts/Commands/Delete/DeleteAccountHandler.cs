@@ -10,7 +10,7 @@ namespace MoneyFlow.Ledger.Application.Features.Accounts.Commands.Delete
     {
         public async Task<Result<Nothing>> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
         {
-            var maybeAccount = await repository.GetByAsync(account => account.Id == request.Id);
+            var maybeAccount = await repository.GetByAsync(account => account.UserId == request.UserId && account.Id == request.Id);
 
             repository.Remove(maybeAccount.Value);
             await unitOfWork.SaveChangesAsync(cancellationToken);

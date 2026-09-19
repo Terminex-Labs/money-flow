@@ -1,25 +1,18 @@
-using System.Reflection;
-using System.Text;
-
 namespace Shared.Dapper
 {
     public static class SqlLoader
     {
-        public static string Load(string repositoryFolderName, string filename, string folderNameForQueries, string baseNamespace, Assembly assembly)
+        public static string Load<TAssembly>(string fileName) where TAssembly : class
         {
-            var sb = new StringBuilder();
+            var assembly = typeof(TAssembly).Assembly;
+            var resourceName = $"SQL.{fileName}";
 
-            sb.Append($"{baseNamespace}.{repositoryFolderName}");
+            using var stream = assembly.GetManifestResourceStream(typeof(TAssembly), resourceName)
+                ?? throw new InvalidOperationException($"Ресурс '{resourceName}' не найден для типа {typeof(TAssembly).Name}");
 
-            sb.Append($".{folderNameForQueries}.{filename}.sql");
+            using var reader = new StreamReader(stream);
 
-            var resourceName = sb.ToString();
-
-            using var stream = assembly!.GetManifestResourceStream(resourceName) ??
-                 throw new InvalidOperationException($"SQL файл '{resourceName}' не найден.");
-
-            using var reader = new StreamReader(stream, Encoding.UTF8);
-            return reader.ReadToEnd().Trim();
+            return reader.ReadToEnd();
         }
     }
 }

@@ -14,20 +14,14 @@ namespace MoneyFlow.Bff.Features.Account
         {
             app.MapPost(_url, async 
                 (
-                    HttpContext httpContext, 
-                    [FromBody] Models.CreateAccountRequest request,
+                    [FromBody] CreateAccountRequest request,
                     [FromServices] IAccountClient accountClient, 
                     [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
             {
-                var accessToken = httpContext.Items["AccessToken"] as string;
-                var dto = jwtReader.Extract(accessToken!);
-
-                var requestCreate = new CreateAccountRequest(dto.UserId, request.Name, request.TypeAccountId, request.CurrencyId, request.Balance, request.IsActive);
-
-                var result = await accountClient.CreateAsync(requestCreate, ct);
+                var result = await accountClient.CreateAsync(request, ct);
 
                 return result.Match
                 (
@@ -42,7 +36,6 @@ namespace MoneyFlow.Bff.Features.Account
 
             app.MapGet(_url, async 
                 (
-                    HttpContext httpContext, 
                     [FromServices] IAccountClient accountClient, 
                     [FromServices] ICurrencyClient currencyClient,
                     [FromServices] ITypeAccountClient typeAccountClient,
@@ -51,9 +44,6 @@ namespace MoneyFlow.Bff.Features.Account
                     CancellationToken ct = default
                 ) =>
             {
-                var accessToken = httpContext.Items["AccessToken"] as string;
-                var dto = jwtReader.Extract(accessToken!);
-
                 var resultAccount = await accountClient.GetAllAsync(ct);
                 var resultCurrency = await currencyClient.GetAllAsync(ct);
                 var resultTypeAccount = await typeAccountClient.GetAllAsync(ct);
@@ -90,20 +80,14 @@ namespace MoneyFlow.Bff.Features.Account
 
             app.MapPatch($"{_url}/name", async 
                 (
-                    HttpContext httpContext, 
-                    [FromBody] Models.UpdateAccountNameRequest request,
+                    [FromBody] UpdateAccountNameRequest request,
                     [FromServices] IAccountClient accountClient, 
                     [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
             {
-                var accessToken = httpContext.Items["AccessToken"] as string;
-                var dto = jwtReader.Extract(accessToken!);
-
-                var requestUpdate = new UpdateAccountNameRequest(dto.UserId, request.Name);
-
-                var result = await accountClient.UpdateNameAsync(requestUpdate, ct);
+                var result = await accountClient.UpdateNameAsync(request, ct);
 
                 return result.Match
                 (
@@ -118,7 +102,6 @@ namespace MoneyFlow.Bff.Features.Account
 
             app.MapPatch("api/v1/account/freeze/{id}", async 
                 (
-                    HttpContext httpContext, 
                     [FromRoute] Guid id,
                     [FromServices] IAccountClient accountClient, 
                     [FromServices] IJwtReader jwtReader, 
@@ -126,9 +109,6 @@ namespace MoneyFlow.Bff.Features.Account
                     CancellationToken ct = default
                 ) =>
             {
-                var accessToken = httpContext.Items["AccessToken"] as string;
-                var dto = jwtReader.Extract(accessToken!);
-
                 var result = await accountClient.FreezeAsync(id, ct);
 
                 return result.Match
@@ -144,7 +124,6 @@ namespace MoneyFlow.Bff.Features.Account
 
             app.MapPatch("api/v1/account/unfreeze/{id}", async 
                 (
-                    HttpContext httpContext, 
                     [FromRoute] Guid id,
                     [FromServices] IAccountClient accountClient, 
                     [FromServices] IJwtReader jwtReader, 
@@ -152,9 +131,6 @@ namespace MoneyFlow.Bff.Features.Account
                     CancellationToken ct = default
                 ) =>
             {
-                var accessToken = httpContext.Items["AccessToken"] as string;
-                var dto = jwtReader.Extract(accessToken!);
-
                 var result = await accountClient.UnfreezeAsync(id, ct);
 
                 return result.Match
@@ -170,7 +146,6 @@ namespace MoneyFlow.Bff.Features.Account
 
             app.MapDelete("api/v1/account/{id}", async 
                 (
-                    HttpContext httpContext, 
                     [FromRoute] Guid id,
                     [FromServices] IAccountClient accountClient, 
                     [FromServices] IJwtReader jwtReader, 
@@ -178,9 +153,6 @@ namespace MoneyFlow.Bff.Features.Account
                     CancellationToken ct = default
                 ) =>
             {
-                var accessToken = httpContext.Items["AccessToken"] as string;
-                var dto = jwtReader.Extract(accessToken!);
-
                 var result = await accountClient.DeleteAsync(id, ct);
 
                 return result.Match
