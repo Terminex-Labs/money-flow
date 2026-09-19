@@ -1,0 +1,54 @@
+<div class="main">
+    <span class="main__title">Создание счета</span>
+
+    <div class="main__form">
+        <div class="main__form__field">
+            <span>Наименование</span>
+            <input class="input" placeholder="My Account" 
+                [value]="data().name" 
+                (input)="data.update(x => ({ ...x, name: $any($event.target).value }))">
+        </div>
+
+        <div class="main__form__field">
+            <span>Тип</span>
+            <combobox [options]="typeAccountsData()"
+                placeholder="Выберите тип карты"
+                [value]="data().typeAccountId"
+                (valueChange)="data.update(x => ({ ...x, typeAccountId: $event }))">
+            </combobox>
+        </div>
+
+        <div class="main__form__field">
+            <span>Валюта</span>
+            <combobox [options]="currenciesData()"
+                placeholder="Выберите валюту"
+                [value]="data().currencyId"
+                (valueChange)="data.update(x => ({ ...x, currencyId: $event }))">
+            </combobox>
+        </div>
+
+        <div class="main__form__field">
+            <span>Баланс</span>
+            <input class="input" placeholder="0" 
+                [value]="data().balance" 
+                (input)="data.update(x => ({ ...x, balance: $any($event.target).value || 0 }))">
+        </div>
+
+        <div class="main__form__field main__form__field--toggle">
+            <div class="toggle-content">
+                <span class="toggle-content__title">Активный</span>
+                <span class="toggle-content__description">Неактивные аккаунты скрыты из списков</span>
+            </div>
+            <app-toggle 
+                [value]="data().isActive"
+                (valueChange)="data.update(x => ({ ...x, isActive: $event }))">
+            </app-toggle>
+        </div>
+    </div>
+
+    <button class="btn btn--add main__add" 
+            (click)="onCreate()" 
+            [disabled]="isLoading()">
+        {{ isLoading() ? 'Создание...' : 'Создать' }}
+    </button>
+</div>

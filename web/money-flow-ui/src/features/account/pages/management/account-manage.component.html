@@ -1,0 +1,44 @@
+<div class="main">
+    <div class="main__topbar">
+        <div class="main__topbar__spacer"></div>
+        <button class="btn btn--add" (click)="navigate()">+ Новый Счет</button>
+    </div>
+
+    <div class="main__list">
+        @for (item of accountData(); track item.id) {
+            <div class="account-card" [class.account-card--inactive]="!item.isActive">
+                <div class="account-card__header">
+                    <h3 class="account-card__title">{{ item.name }}</h3>
+                    <span class="account-card__status" 
+                          [class.account-card__status--active]="item.isActive"
+                          [class.account-card__status--inactive]="!item.isActive">
+                        {{ item.isActive ? 'Активен' : 'Неактивен' }}
+                    </span>
+                </div>
+                
+                <div class="account-card__body">
+                    <div class="account-card__info">
+                        <span class="account-card__label">Тип:</span>
+                        <span class="account-card__value">{{ item.typeAccountName }}</span>
+                    </div>
+                    <div class="account-card__info">
+                        <span class="account-card__label">Валюта:</span>
+                        <div>
+                            <span class="account-card__value">{{ item.currency.shortName }} -</span>
+                            <span class="account-card__value"> {{ item.currency.unicode }} •</span>
+                            <span class="account-card__value"> {{ item.currency.fullName }}</span>
+                        </div>
+                    </div>
+                    <div class="account-card__info">
+                        <span class="account-card__label">Баланс:</span>
+                        <span class="account-card__value account-card__balance">{{ item.balance }}</span>
+                    </div>
+                </div>
+            </div>
+        } @empty {
+            <div class="main__empty">
+                <p>Нет доступных счетов</p>
+            </div>
+        }
+    </div>
+</div>
