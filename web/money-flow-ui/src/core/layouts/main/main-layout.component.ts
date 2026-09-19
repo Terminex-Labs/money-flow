@@ -21,10 +21,20 @@ export class MainLayoutComponent {
         ['debt', "Долги"],
         ['account', "Счета"]
     ]);
+    
+    private titleDescription = new Map<ViewPage, string>
+    ([
+        ['dashboard', "Аналитика по финансам"],
+        ['transaction', "Управление транзакциями"],
+        ['budget', "Управление бюджетом"],
+        ['debt', "Управление долгами"],
+        ['account', "Управление счетами"]
+    ]);
 
     isSidebarExpanded = signal<boolean>(true);
     currentPage = signal<ViewPage>('dashboard');
     title = computed(() => this.titleRU.get(this.currentPage()));
+    description = computed(() => this.titleDescription.get(this.currentPage()));
 
     navigate(selectedPage: ViewPage) {
         this.currentPage.set(selectedPage);
