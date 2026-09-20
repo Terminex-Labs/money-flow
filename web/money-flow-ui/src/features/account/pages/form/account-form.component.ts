@@ -55,6 +55,10 @@ export class AccountFormComponent {
         })));
     }
 
+    onCancellation() {
+        this.router.navigate(['/account']);
+    } 
+
     async onCreate() {
         if (!this.data().name.trim() || !this.data().typeAccountId || !this.data().currencyId) {
             alert('Пожалуйста, заполните все обязательные поля');

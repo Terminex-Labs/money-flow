@@ -5,7 +5,21 @@
 
     &__topbar {
         display: flex;
-        align-items: center;
+        flex-direction: row;
+        margin-bottom: 20px;
+
+        &__menu {
+            visibility: hidden;
+            align-items: center;
+            gap: 8px;
+            transition: visibility 0.2s ease, opacity 0.2s ease;
+            opacity: 0;
+
+            &--visible {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
 
         &__spacer {
             flex: 1;
@@ -33,12 +47,19 @@
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
-    border: 1px solid $color-border;
+    // border: 1px solid $color-border;
+    border: 2px solid transparent; 
+    cursor: pointer;
 
     &:hover {
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
         transform: translateY(-2px);
         border-color: $color-border-hover;
+    }
+    
+    &--selected {
+        border-color: $color-accent; 
+        box-shadow: 0 0 0 3px rgba($color-accent, 0.2);
     }
 
     &--inactive {
