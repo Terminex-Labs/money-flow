@@ -17,5 +17,14 @@ namespace MoneyFlow.Ledger.Infrastructure.Persistence.Repositories.Accounts
 
             return [.. accounts];
         }
+
+        public async Task<AccountResponse> GetByIdAsync(Guid userId, Guid accountId, CancellationToken ct)
+        {
+            string query = SqlLoader.Load<AccountReadOnlyRepository>("GetByIdAccountByUserId.sql");
+
+            var account = await _connection.QueryFirstAsync<AccountResponse>(query, new { userId, accountId });
+
+            return account;
+        }
     }
 }
