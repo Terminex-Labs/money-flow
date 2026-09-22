@@ -69,11 +69,24 @@
         }
     }
 
-    &__add {
+    &__btn {
+        display:  flex;
+        flex-direction: row;
+        align-self: flex-end;
         margin-top: 20px;
-        background: #e8e8e8;
-        align-self: flex-start;
-        width: 100px;
-        font-weight: bold;
+
+        &__add {
+            background: #e8e8e8;
+            margin-left: 10px;
+            width: 100px;
+            font-weight: bold;
+        }
+
+        &__delete {
+            background: $bg-main;
+            margin-right: 10px;
+            width: 100px;
+            font-weight: bold;
+        }
     }
 }

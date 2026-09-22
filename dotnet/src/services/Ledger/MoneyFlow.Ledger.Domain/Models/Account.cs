@@ -4,6 +4,7 @@ using Shared.Kernel.Primitives;
 using Shared.Kernel.Exceptions;
 using Shared.Kernel.ValueObjects;
 using MoneyFlow.Ledger.Domain.ValueObjects.Accounts;
+using Terminex.Common.Guard;
 
 namespace MoneyFlow.Ledger.Domain.Models
 {
@@ -32,11 +33,34 @@ namespace MoneyFlow.Ledger.Domain.Models
 
         public void UpdateName(AccountName name)
         {
-            if (!IsActive)
-                throw new DomainException(Error.New(AppErrors.IncorrectOperation, "Невозможно обновить не активный счет!"));
+            Guard.Against.That(!IsActive, () => new DomainException(Error.New(AppErrors.IncorrectOperation, "Невозможно обновить не активный счет!")));
 
             Name = name;
         }
+
+        public void UpdateTypeAccountId(TypeAccountId typeAccountId)
+        {
+            Guard.Against.That(!IsActive, () => new DomainException(Error.New(AppErrors.IncorrectOperation, "Невозможно обновить не активный счет!")));
+
+            TypeAccountId = typeAccountId;
+        }
+
+        public void UpdateCurrencyId(CurrencyId currencyId)
+        {
+            Guard.Against.That(!IsActive, () => new DomainException(Error.New(AppErrors.IncorrectOperation, "Невозможно обновить не активный счет!")));
+
+            CurrencyId = currencyId;
+        }
+
+        public void UpdateBalance(Money balance)
+        {
+            Guard.Against.That(!IsActive, () => new DomainException(Error.New(AppErrors.IncorrectOperation, "Невозможно обновить не активный счет!")));
+
+            Balance = balance;
+        }
+
+        public void UpdateIsActive(bool isActive)
+            => IsActive = isActive;
 
         public void Freeze() => IsActive = false;
         public void Unfreeze() => IsActive = true;

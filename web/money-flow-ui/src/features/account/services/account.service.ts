@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { AccountResponse, CreateAccountRequest, CreatedAccountResponse, UpdateAccountNameRequest } from "../models/account.model";
+import { AccountResponse, CreateAccountRequest, CreatedAccountResponse, UpdateAccountRequest } from "../models/account.model";
 import { firstValueFrom } from "rxjs";
 
 @Injectable({providedIn: 'root'})
@@ -17,8 +17,12 @@ export class AccountService {
         return await firstValueFrom(this.httpClient.get<AccountResponse[]>(this.url));
     }
 
-    async updateAccountName(request: UpdateAccountNameRequest) : Promise<void> {
-        await firstValueFrom(this.httpClient.patch(`${this.url}/name`, request))
+    async getByIdAccount(id: string) : Promise<AccountResponse> {
+        return await firstValueFrom(this.httpClient.get<AccountResponse>(`${this.url}/${id}`));
+    }
+
+    async updateAccount(request: UpdateAccountRequest) : Promise<void> {
+        await firstValueFrom(this.httpClient.patch(this.url, request))
     }
 
     async freeze(id: string) : Promise<void> {

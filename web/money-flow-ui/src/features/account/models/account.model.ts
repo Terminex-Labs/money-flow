@@ -1,4 +1,5 @@
-export interface Account {
+export interface AccountView {
+    id: string | null,
     name: string,
     typeAccountId: string | null,
     currencyId: string | null,
@@ -14,9 +15,13 @@ export interface CreateAccountRequest {
     isActive: boolean
 }
 
-export interface UpdateAccountNameRequest {
+export interface UpdateAccountRequest {
     id: string,
-    name: string
+    name: string,
+    typeAccountId: string,
+    currencyId: string,
+    balance: number,
+    isActive: boolean
 }
 
 export interface CreatedAccountResponse {
@@ -26,17 +31,20 @@ export interface CreatedAccountResponse {
 export interface AccountResponse {
     id: string,
     name: string,
-    typeAccountName: string,
-    currency: AccountDataCurrencyResponse,
+    typeAccount: 
+    {
+        id: string,
+        name: string
+    },
+    currency: 
+    {
+        id: string,
+        shortName: string,
+        unicode: string,
+        fullName: string
+    },
     balance: number,
     isActive: boolean,
-}
-
-export interface AccountDataCurrencyResponse {
-    id: string,
-    shortName: string,
-    unicode: string,
-    fullName: string
 }
 
 export interface CurrencyResponse {

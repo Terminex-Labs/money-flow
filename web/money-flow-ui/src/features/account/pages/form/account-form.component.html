@@ -1,12 +1,12 @@
 <div class="main">
-    <span class="main__title">Создание счета</span>
+    <span class="main__title">{{ getTitle() }}</span>
 
     <div class="main__form">
         <div class="main__form__field">
             <span>Наименование</span>
             <input class="input" placeholder="My Account" 
                 [value]="data().name" 
-                (input)="data.update(x => ({ ...x, name: $any($event.target).value }))">
+                (input)="data.update(account => ({ ...account, name: $any($event.target).value }))">
         </div>
 
         <div class="main__form__field">
@@ -14,7 +14,7 @@
             <combobox [options]="typeAccountsData()"
                 placeholder="Выберите тип карты"
                 [value]="data().typeAccountId"
-                (valueChange)="data.update(x => ({ ...x, typeAccountId: $event }))">
+                (valueChange)="data.update(account => ({ ...account, typeAccountId: $event }))">
             </combobox>
         </div>
 
@@ -23,7 +23,7 @@
             <combobox [options]="currenciesData()"
                 placeholder="Выберите валюту"
                 [value]="data().currencyId"
-                (valueChange)="data.update(x => ({ ...x, currencyId: $event }))">
+                (valueChange)="data.update(account => ({ ...account, currencyId: $event }))">
             </combobox>
         </div>
 
@@ -31,7 +31,7 @@
             <span>Баланс</span>
             <input class="input" placeholder="0" 
                 [value]="data().balance" 
-                (input)="data.update(x => ({ ...x, balance: $any($event.target).value || 0 }))">
+                (input)="data.update(account => ({ ...account, balance: $any($event.target).value || 0 }))">
         </div>
 
         <div class="main__form__field main__form__field--toggle">
@@ -41,14 +41,18 @@
             </div>
             <app-toggle 
                 [value]="data().isActive"
-                (valueChange)="data.update(x => ({ ...x, isActive: $event }))">
+                (valueChange)="data.update(account => ({ ...account, isActive: $event }))">
             </app-toggle>
         </div>
     </div>
 
-    <button class="btn btn--add main__add" 
-            (click)="onCreate()" 
-            [disabled]="isLoading()">
-        {{ isLoading() ? 'Создание...' : 'Создать' }}
-    </button>
+    <div class="main__btn">
+        <button class="btn main__btn__delete" (click)="onCancellation()">Отмена</button>
+
+        <button class="btn btn--add main__btn__add" 
+                (click)="onSave()" 
+                [disabled]="isLoading()">
+            {{ getButtonText() }}
+        </button>
+    </div>
 </div>

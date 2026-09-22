@@ -1,12 +1,37 @@
 <div class="main">
     <div class="main__topbar">
+        <div class="main__topbar__menu" [class.main__topbar__menu--visible]="selectedAccount()">
+            <!-- EDIT -->
+            <button class="btn btn--icon" (click)="onEditBtn()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil preview-icon"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+            </button>
+            <!-- FREEZE: Показываем только если выбранный счет активен -->
+            @if (selectedAccount()?.isActive) {
+                <button class="btn btn--icon" (click)="onFreezeBtn()" title="Заморозить">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-archive preview-icon"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
+                </button>
+            }
+            <!-- UNFREEZE: Показываем только если выбранный счет неактивен -->
+            @if (!selectedAccount()?.isActive) {
+                <button class="btn btn--icon" (click)="onUnfreezeBtn()" title="Разморозить">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-archive-x preview-icon"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="m9.5 17 5-5"/><path d="m9.5 12 5 5"/></svg>
+                </button>
+            }
+            <!-- DELETE -->
+            <button class="btn btn--icon" (click)="onDeleteBtn()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+        </div>
         <div class="main__topbar__spacer"></div>
-        <button class="btn btn--add" (click)="navigate()">+ Новый Счет</button>
+        <button class="btn btn--add" (click)="onCreateAccount()">+ Новый Счет</button>
     </div>
 
     <div class="main__list">
-        @for (item of accountData(); track item.id) {
-            <div class="account-card" [class.account-card--inactive]="!item.isActive">
+        @for (item of accounts(); track item.id) {
+            <div class="account-card" 
+                [class.account-card--inactive]="!item.isActive"
+                [class.account-card--selected]="selectedAccount()?.id == item.id"
+                (click)="selectedAccount.set(item)">
                 <div class="account-card__header">
                     <h3 class="account-card__title">{{ item.name }}</h3>
                     <span class="account-card__status" 
@@ -19,7 +44,7 @@
                 <div class="account-card__body">
                     <div class="account-card__info">
                         <span class="account-card__label">Тип:</span>
-                        <span class="account-card__value">{{ item.typeAccountName }}</span>
+                        <span class="account-card__value">{{ item.typeAccount.name }}</span>
                     </div>
                     <div class="account-card__info">
                         <span class="account-card__label">Валюта:</span>
