@@ -8,9 +8,10 @@ using Shared.Ledger.Contracts.Accounts.Request;
 using MoneyFlow.Ledger.Application.Features.Accounts.Queries.All;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Create;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Delete;
+using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Update;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Freeze;
 using MoneyFlow.Ledger.Application.Features.Accounts.Commands.Unfreeze;
-using MoneyFlow.Ledger.Application.Features.Accounts.Commands.UpdateName;
+using MoneyFlow.Ledger.Application.Features.Accounts.Queries.ById;
 
 namespace MoneyFlow.Ledger.Api.Controllers
 {
@@ -57,15 +58,40 @@ namespace MoneyFlow.Ledger.Api.Controllers
             );
         }
 
-        [HttpPatch("name")]
-        public async Task<IActionResult> UpdateName([FromBody] UpdateAccountNameRequest request, CancellationToken ct = default)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken ct = default)
+        {
+            Result<ExtractData> extractResult = this.CredentialsAccessData(User);
+
+            var query = new GetByIdAccountQuery(extractResult.Value.UserId, id);
+
+            var result = await mediator.Send(query, ct);
+
+            return result.Match
+            (
+                onSuccess: () => Ok(result.Value),
+                onFailure: error => this.MapActionResult(error)
+            );
+        }
+
+        [HttpPatch]
+        public async Task<IActionResult> UpdateName([FromBody] UpdateAccountRequest request, CancellationToken ct = default)
         {
             Result<ExtractData> extractResult = this.CredentialsAccessData(User);
 
             if (extractResult.IsFailure)
                 return extractResult.Value.ActionResult;
 
-            var command = new UpdateAccountNameCommand(extractResult.Value.UserId, Guid.Parse(request.Id), request.Name);
+            var command = new UpdateAccountCommand
+            (
+                extractResult.Value.UserId, 
+                Guid.Parse(request.Id), 
+                request.Name, 
+                Guid.Parse(request.TypeAccountId), 
+                Guid.Parse(request.CurrencyId), 
+                request.Balance, 
+                request.IsActive
+            );
 
             var result = await mediator.Send(command, ct);
 

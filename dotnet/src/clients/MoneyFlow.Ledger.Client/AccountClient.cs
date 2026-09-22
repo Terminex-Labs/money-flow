@@ -20,8 +20,11 @@ namespace MoneyFlow.Ledger.Client
         public async Task<Result<List<AccountResponse>>> GetAllAsync(CancellationToken ctn = default)
             => await CatchResponseAsync<List<AccountResponse>>(async ct => await _http.GetAsync(_url, ct), ctn);
 
-        public async Task<Result<Nothing>> UpdateNameAsync(UpdateAccountNameRequest request, CancellationToken ctn = default)
-            => await CatchAsync(async ct => await _http.PatchAsJsonAsync($"{_url}/name", request, _jsonOptions, ct), ctn);
+        public async Task<Result<AccountResponse>> GetByIdAsync(Guid id, CancellationToken ctn = default)
+            => await CatchResponseAsync<AccountResponse>(async ct => await _http.GetAsync($"{_url}/{id}", ct), ctn);
+
+        public async Task<Result<Nothing>> UpdateAsync(UpdateAccountRequest request, CancellationToken ctn = default)
+            => await CatchAsync(async ct => await _http.PatchAsJsonAsync(_url, request, _jsonOptions, ct), ctn);
 
         public async Task<Result<Nothing>> FreezeAsync(Guid id, CancellationToken ctn = default)
             => await CatchAsync(async ct => await _http.PatchAsJsonAsync($"{_url}/freeze/{id}", _jsonOptions, ct), ctn);

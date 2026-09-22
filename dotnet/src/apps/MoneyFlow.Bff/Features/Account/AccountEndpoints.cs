@@ -78,23 +78,74 @@ namespace MoneyFlow.Bff.Features.Account
                 );
             }).RequireAuthorization();
 
-            app.MapPatch($"{_url}/name", async 
+            app.MapGet("api/v1/account/{id}", async 
                 (
-                    [FromBody] UpdateAccountNameRequest request,
+                    [FromRoute] Guid id,
+                    [FromServices] IAccountClient accountClient, 
+                    [FromServices] ICurrencyClient currencyClient,
+                    [FromServices] ITypeAccountClient typeAccountClient,
+                    [FromServices] IJwtReader jwtReader, 
+                    [FromServices] ILogger<Program> logger,
+                    CancellationToken ct = default
+                ) =>
+            {
+                var resultAccount = await accountClient.GetByIdAsync(id, ct);
+                var account = resultAccount.Value;
+
+                var resultTypeAccount = await typeAccountClient.GetAllAsync(ct);
+                var typeAccount = resultTypeAccount.Value.FirstOrDefault(x => x.Id == account.TypeAccountId)!;
+
+                var resultCurrency = await currencyClient.GetAllAsync(ct);
+                var currency = resultCurrency.Value.FirstOrDefault(x => x.Id == account.CurrencyId)!;
+
+                var response = new Models.AccountResponse
+                (
+                    account.Id.ToString(), 
+                    account.Name, 
+                    new Models.AccountDataTypeAccountResponse
+                    (
+                        typeAccount.Id.ToString(),
+                        typeAccount.Name
+                    ),
+                    new Models.AccountDataCurrencyResponse
+                    (
+                        currency.Id.ToString(),
+                        currency.ShortName,
+                        currency.Unicode,
+                        currency.FullName
+                    ),
+                    account.Balance,
+                    account.IsActive
+                );
+
+                return resultAccount.Match
+                (
+                    onSuccess: () => Results.Ok(response),
+                    onFailure: errors =>
+                    {
+                        logger.LogError("Во время выполнения `AccountEndpoints` в `api/v1/account/get`, пришел не удачный ответ от `IAccountClient` в методе `GetByIdAsync`! Ошибка: {Errors}", resultAccount.StringMessage);
+                        return errors.MapToMinimalApiResult();
+                    }
+                );
+            }).RequireAuthorization();
+
+            app.MapPatch(_url, async 
+                (
+                    [FromBody] UpdateAccountRequest request,
                     [FromServices] IAccountClient accountClient, 
                     [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
             {
-                var result = await accountClient.UpdateNameAsync(request, ct);
+                var result = await accountClient.UpdateAsync(request, ct);
 
                 return result.Match
                 (
                     onSuccess: () => Results.Ok(result.Value),
                     onFailure: errors =>
                     {
-                        logger.LogError("Во время выполнения `AccountEndpoints` в `api/v1/account/patch`, пришел не удачный ответ от `IAccountClient` в методе `UpdateNameAsync`! Ошибка: {Errors}", result.StringMessage);
+                        logger.LogError("Во время выполнения `AccountEndpoints` в `api/v1/account/patch`, пришел не удачный ответ от `IAccountClient` в методе `UpdateAsync`! Ошибка: {Errors}", result.StringMessage);
                         return errors.MapToMinimalApiResult();
                     }
                 );
