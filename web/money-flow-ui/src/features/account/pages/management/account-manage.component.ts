@@ -2,6 +2,7 @@ import { Component, HostListener, inject, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { AccountService } from "../../services/account.service";
 import { AccountResponse } from "../../models/account.model";
+import { AccountIdStateService } from "../../services/account-id-state.service";
 
 @Component({
     selector: 'app-account-manage',
@@ -12,6 +13,7 @@ import { AccountResponse } from "../../models/account.model";
 
 export class AccountManageComponent {
     private readonly accountService = inject(AccountService);
+    private readonly accountIdStateService = inject(AccountIdStateService);
     private router = inject(Router);
 
     accounts = signal<AccountResponse[] | null>([]);
@@ -25,12 +27,19 @@ export class AccountManageComponent {
         this.accounts.set(await this.accountService.getAllAccount());
     }
 
-    navigate() {
+    onCreateAccount() {
+        this.accountIdStateService.clear();
         this.router.navigate(['/account/form']);
     }
 
     onEditBtn() {
+        const account = this.selectedAccount();
 
+        if (!account || !account.isActive)
+            return;
+        
+        this.accountIdStateService.set(account.id);
+        this.router.navigate(['/account/form']);
     }
 
     async onFreezeBtn() {

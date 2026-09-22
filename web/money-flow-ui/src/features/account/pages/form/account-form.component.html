@@ -1,5 +1,5 @@
 <div class="main">
-    <span class="main__title">Создание счета</span>
+    <span class="main__title">{{ getTitle() }}</span>
 
     <div class="main__form">
         <div class="main__form__field">
@@ -50,9 +50,9 @@
         <button class="btn main__btn__delete" (click)="onCancellation()">Отмена</button>
 
         <button class="btn btn--add main__btn__add" 
-                (click)="onCreate()" 
+                (click)="onSave()" 
                 [disabled]="isLoading()">
-            {{ isLoading() ? 'Создание...' : 'Создать' }}
+            {{ getButtonText() }}
         </button>
     </div>
 </div>

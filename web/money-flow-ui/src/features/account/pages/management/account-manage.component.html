@@ -23,7 +23,7 @@
             </button>
         </div>
         <div class="main__topbar__spacer"></div>
-        <button class="btn btn--add" (click)="navigate()">+ Новый Счет</button>
+        <button class="btn btn--add" (click)="onCreateAccount()">+ Новый Счет</button>
     </div>
 
     <div class="main__list">
@@ -44,7 +44,7 @@
                 <div class="account-card__body">
                     <div class="account-card__info">
                         <span class="account-card__label">Тип:</span>
-                        <span class="account-card__value">{{ item.typeAccountName }}</span>
+                        <span class="account-card__value">{{ item.typeAccount.name }}</span>
                     </div>
                     <div class="account-card__info">
                         <span class="account-card__label">Валюта:</span>
