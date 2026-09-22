@@ -52,15 +52,15 @@ namespace MoneyFlow.Bff.Features.Account
                 (
                     account =>
                     {
+                        var typeAccount = resultTypeAccount.Value.FirstOrDefault(typeAccount => typeAccount.Id == account.TypeAccountId);
                         var currency = resultCurrency.Value.FirstOrDefault(currency => currency.Id == account.CurrencyId);
-                        var typeAccountName = resultTypeAccount.Value.FirstOrDefault(typeAccount => typeAccount.Id == account.TypeAccountId)?.Name;
 
                         return new Models.AccountResponse
                         (
                             account.Id.ToString(), 
                             account.Name, 
+                            typeAccount == null ? null : new Models.AccountDataTypeAccountResponse(typeAccount.Id.ToString(), typeAccount.Name),
                             currency == null ? null : new Models.AccountDataCurrencyResponse(currency.Id.ToString(), currency.ShortName, currency.Unicode, currency.FullName),
-                            typeAccountName,
                             account.Balance,
                             account.IsActive
                         );

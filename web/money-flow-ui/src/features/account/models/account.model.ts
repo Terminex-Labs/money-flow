@@ -26,17 +26,20 @@ export interface CreatedAccountResponse {
 export interface AccountResponse {
     id: string,
     name: string,
-    typeAccountName: string,
-    currency: AccountDataCurrencyResponse,
+    typeAccount: 
+    {
+        id: string,
+        name: string
+    },
+    currency: 
+    {
+        id: string,
+        shortName: string,
+        unicode: string,
+        fullName: string
+    },
     balance: number,
     isActive: boolean,
-}
-
-export interface AccountDataCurrencyResponse {
-    id: string,
-    shortName: string,
-    unicode: string,
-    fullName: string
 }
 
 export interface CurrencyResponse {
