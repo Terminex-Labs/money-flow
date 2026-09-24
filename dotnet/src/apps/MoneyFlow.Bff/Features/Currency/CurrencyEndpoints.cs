@@ -1,5 +1,4 @@
 using Shared.Api.Extensions;
-using MoneyFlow.Bff.Services;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Client.Abstraction;
 using Shared.Catalog.Contracts.Request;
@@ -16,7 +15,6 @@ namespace MoneyFlow.Bff.Features.Currency
                 (
                     [FromBody] CreateCurrencyRequest request,
                     [FromServices] ICurrencyClient currencyClient, 
-                    [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
@@ -37,7 +35,6 @@ namespace MoneyFlow.Bff.Features.Currency
             app.MapGet(_url, async 
                 (
                     [FromServices] ICurrencyClient currencyClient, 
-                    [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
@@ -59,7 +56,6 @@ namespace MoneyFlow.Bff.Features.Currency
                 (
                     [FromRoute] Guid id,
                     [FromServices] ICurrencyClient currencyClient, 
-                    [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
@@ -81,7 +77,6 @@ namespace MoneyFlow.Bff.Features.Currency
                 (
                     [FromBody] UpdateCurrencyRequest request,
                     [FromServices] ICurrencyClient currencyClient, 
-                    [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
@@ -103,7 +98,6 @@ namespace MoneyFlow.Bff.Features.Currency
                 (
                     [FromRoute] Guid id,
                     [FromServices] ICurrencyClient currencyClient, 
-                    [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
