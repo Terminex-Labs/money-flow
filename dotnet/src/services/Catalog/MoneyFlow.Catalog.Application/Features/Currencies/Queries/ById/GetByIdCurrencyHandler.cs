@@ -9,12 +9,12 @@ namespace MoneyFlow.Catalog.Application.Features.Currencies.Queries.ById
     {
         public async Task<Result<CurrencyResponse>> Handle(GetByIdCurrencyQuery request, CancellationToken cancellationToken)
         {
-            var maybeCurrency = await repository.GetByIdAsync(request.Id.ToString(), cancellationToken);
+            var currency = await repository.GetByIdAsync(request.Id, cancellationToken);
 
-            if (maybeCurrency.IsNone)
+            if (currency == null)
                 return Error.NotFound("Валюта не найдена!");
             
-            return maybeCurrency.Value;
+            return currency;
         }
     }
 }
