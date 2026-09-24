@@ -46,7 +46,7 @@ namespace MoneyFlow.Catalog.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAll([FromRoute] Guid id, CancellationToken ct = default)
+        public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken ct = default)
         {
             var query = new GetByIdTypeAccountQuery(id);
 

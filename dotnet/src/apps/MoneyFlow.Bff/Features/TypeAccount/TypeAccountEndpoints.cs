@@ -9,7 +9,7 @@ namespace MoneyFlow.Bff.Features.TypeAccount
     {
         private static readonly string _url = "api/v1/type/account";
 
-        public static void MapCurrency(this IEndpointRouteBuilder app)
+        public static void MapTypeAccount(this IEndpointRouteBuilder app)
         {
             app.MapPost(_url, async 
                 (
@@ -52,7 +52,7 @@ namespace MoneyFlow.Bff.Features.TypeAccount
                 );
             }).RequireAuthorization();
 
-            app.MapGet("api/v1/currency/{id}", async 
+            app.MapGet("api/v1/type/account/{id}", async 
                 (
                     [FromRoute] Guid id, 
                     [FromServices] ITypeAccountClient typeAccountClient, 
@@ -94,7 +94,7 @@ namespace MoneyFlow.Bff.Features.TypeAccount
                 );
             }).RequireAuthorization();
 
-            app.MapDelete("api/v1/currency/{id}", async 
+            app.MapDelete("api/v1/type/account/{id}", async 
                 (
                     [FromRoute] Guid id,
                     [FromServices] ITypeAccountClient currencyClient, 
@@ -109,7 +109,7 @@ namespace MoneyFlow.Bff.Features.TypeAccount
                     onSuccess: () => Results.Ok(result.Value),
                     onFailure: errors =>
                     {
-                        logger.LogError("Во время выполнения `TypeAccountEndpoints` в `api/v1/type/account/patch`, пришел не удачный ответ от `ITypeAccountClient` в методе `DeleteAsync`! Ошибка: {Errors}", result.StringMessage);
+                        logger.LogError("Во время выполнения `TypeAccountEndpoints` в `api/v1/type/account/delete`, пришел не удачный ответ от `ITypeAccountClient` в методе `DeleteAsync`! Ошибка: {Errors}", result.StringMessage);
                         return errors.MapToMinimalApiResult();
                     }
                 );
