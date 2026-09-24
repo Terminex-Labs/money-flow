@@ -9,6 +9,15 @@ namespace MoneyFlow.Catalog.Infrastructure.Persistence.Repositories.Currencies
 {
     internal sealed class CurrencyReadOnlyRepository(IDbConnection connection) : ReadOnlyRepository<CurrencyResponse>(connection, TableNames.Currency), ICurrencyReadOnlyRepository
     {
+        public async new Task<List<CurrencyResponse>> GetAllAsync(CancellationToken ct = default)
+        {
+            string query = SqlLoader.Load<CurrencyReadOnlyRepository>("GetAllCurrency.sql");
+
+            var currencies = await _connection.QueryAsync<CurrencyResponse>(query);
+
+            return [.. currencies];
+        }
+
         public async Task<CurrencyResponse> GetByIdAsync(Guid currencyId, CancellationToken ct = default)
         {
             string query = SqlLoader.Load<CurrencyReadOnlyRepository>("GetByIdCurrency.sql");
