@@ -8,6 +8,7 @@ using MoneyFlow.Catalog.Application.Features.TypeAccounts.Queries.All;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Commands.Create;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Commands.Update;
 using MoneyFlow.Catalog.Application.Features.TypeAccounts.Commands.Delete;
+using MoneyFlow.Catalog.Application.Features.TypeAccounts.Queries.ById;
 
 namespace MoneyFlow.Catalog.Api.Controllers
 {
@@ -34,6 +35,20 @@ namespace MoneyFlow.Catalog.Api.Controllers
         public async Task<IActionResult> GetAll(CancellationToken ct = default)
         {
             var query = new GetAllTypeAccountQuery();
+
+            var result = await mediator.Send(query, ct);
+
+            return result.Match
+            (
+                onSuccess: () => Ok(result.Value),
+                onFailure: error => this.MapActionResult(error)
+            );
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAll([FromRoute] Guid id, CancellationToken ct = default)
+        {
+            var query = new GetByIdTypeAccountQuery(id);
 
             var result = await mediator.Send(query, ct);
 

@@ -11,7 +11,7 @@ namespace MoneyFlow.Catalog.Application.Features.TypeAccounts.Queries.All
         {
             var typeAccounts = await repository.GetAllAsync(cancellationToken);
 
-            return typeAccounts.ToList();
+            return typeAccounts;
         }
     }
 }
