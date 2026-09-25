@@ -1,5 +1,6 @@
 import { Component, computed, inject, signal, ViewEncapsulation } from "@angular/core";
 import { Router, RouterOutlet } from '@angular/router';
+import { AdminService } from "../../services/admin.service";
 
 @Component({
     selector: 'app-main-layout',
@@ -11,7 +12,10 @@ import { Router, RouterOutlet } from '@angular/router';
 })
 
 export class MainLayoutComponent {
+    private readonly adminService = inject(AdminService);
     private router = inject(Router);
+
+    isAdmin = signal<boolean>(false);
 
     private titleRU = new Map<ViewPage, string>
     ([
@@ -43,5 +47,9 @@ export class MainLayoutComponent {
     navigate(selectedPage: ViewPage) {
         this.currentPage.set(selectedPage);
         this.router.navigate([`/${this.currentPage()}`]);
+    }
+
+    async ngOnInit() {
+        this.isAdmin.set(await this.adminService.check());
     }
 }
