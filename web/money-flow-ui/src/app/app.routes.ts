@@ -3,6 +3,7 @@ import { OVERVIEW_ROUTES } from '../features/overview/overview.routes';
 import { ACCOUNT_ROUTES } from '../features/account/account.routes';
 import { BASE_ROUTES } from '../features/base.routes';
 import { CURRENCY_ROUTES } from '../features/currency/currency.routes';
+import { TYPE_ACCOUNT_ROUTER } from '../features/type-account/type-account.routes';
 
 export const routes: Routes = 
 [
@@ -14,7 +15,8 @@ export const routes: Routes =
             ...BASE_ROUTES,
             ...OVERVIEW_ROUTES,
             ...ACCOUNT_ROUTES,
-            ...CURRENCY_ROUTES
+            ...CURRENCY_ROUTES,
+            ...TYPE_ACCOUNT_ROUTER
         ]
     },
     { path: '**', redirectTo: 'dashboard' },

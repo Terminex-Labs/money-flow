@@ -20,7 +20,8 @@ export class MainLayoutComponent {
         ['budget', "Бюджет"],
         ['debt', "Долги"],
         ['account', "Счета"],
-        ['admin/currency', "Валюта"]
+        ['admin/currency', "Валюта"],
+        ['admin/type/account', "Тип счета"]
     ]);
     
     private titleDescription = new Map<ViewPage, string>
@@ -30,7 +31,8 @@ export class MainLayoutComponent {
         ['budget', "Управление бюджетом"],
         ['debt', "Управление долгами"],
         ['account', "Управление счетами"],
-        ['admin/currency', "Управление валютами"]
+        ['admin/currency', "Управление валютами"],
+        ['admin/type/account', "Управление типами счетов"]
     ]);
 
     isSidebarExpanded = signal<boolean>(true);

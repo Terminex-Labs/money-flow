@@ -1,1 +1,1 @@
-type ViewPage = 'dashboard' | 'transaction' | 'budget' | 'debt' | 'account' | 'admin/currency';
+type ViewPage = 'dashboard' | 'transaction' | 'budget' | 'debt' | 'account' | 'admin/currency' | 'admin/type/account';
