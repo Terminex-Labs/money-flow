@@ -1,0 +1,22 @@
+<div class="main">
+    <span class="main__title">{{ getTitle() }}</span>
+
+    <div class="main__form">
+        <div class="main__form__field">
+            <span>Наименование</span>
+            <input class="input" placeholder="Дебетовая/Кредитная карта" 
+                [value]="data().name"
+                (input)="data.update(typeAccount => ({ ...typeAccount, name: $any($event.target).value }))">
+        </div>
+    </div>
+
+    <div class="main__btn">
+        <button class="btn main__btn__delete" (click)="onCancellation()">Отмена</button>
+
+        <button class="btn btn--add main__btn__add" 
+                (click)="onSave()" 
+                [disabled]="isLoading()">
+            {{ getButtonText() }}
+        </button>
+    </div>
+</div>

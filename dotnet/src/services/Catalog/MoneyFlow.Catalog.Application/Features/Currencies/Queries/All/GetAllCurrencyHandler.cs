@@ -11,7 +11,7 @@ namespace MoneyFlow.Catalog.Application.Features.Currencies.Queries.All
         {
             var currencies = await repository.GetAllAsync(cancellationToken);
             
-            return currencies.ToList();
+            return currencies;
         }
     }
 }

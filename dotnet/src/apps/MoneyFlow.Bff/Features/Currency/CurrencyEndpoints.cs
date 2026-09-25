@@ -1,5 +1,4 @@
 using Shared.Api.Extensions;
-using MoneyFlow.Bff.Services;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Client.Abstraction;
 using Shared.Catalog.Contracts.Request;
@@ -12,19 +11,14 @@ namespace MoneyFlow.Bff.Features.Currency
 
         public static void MapCurrency(this IEndpointRouteBuilder app)
         {
-            app.MapPost("api/v1/currency", async 
+            app.MapPost(_url, async 
                 (
-                    HttpContext httpContext, 
                     [FromBody] CreateCurrencyRequest request,
                     [FromServices] ICurrencyClient currencyClient, 
-                    [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
             {
-                var accessToken = httpContext.Items["AccessToken"] as string;
-                var dto = jwtReader.Extract(accessToken!);
-
                 var result = await currencyClient.CreateAsync(request, ct);
 
                 return result.Match
@@ -40,16 +34,11 @@ namespace MoneyFlow.Bff.Features.Currency
 
             app.MapGet(_url, async 
                 (
-                    HttpContext httpContext, 
                     [FromServices] ICurrencyClient currencyClient, 
-                    [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
             {
-                var accessToken = httpContext.Items["AccessToken"] as string;
-                var dto = jwtReader.Extract(accessToken!);
-
                 var result = await currencyClient.GetAllAsync(ct);
 
                 return result.Match
@@ -63,19 +52,35 @@ namespace MoneyFlow.Bff.Features.Currency
                 );
             }).RequireAuthorization();
 
-            app.MapPatch(_url, async 
+            app.MapGet("api/v1/currency/{id}", async 
                 (
-                    HttpContext httpContext, 
-                    [FromBody] UpdateCurrencyRequest request,
+                    [FromRoute] Guid id,
                     [FromServices] ICurrencyClient currencyClient, 
-                    [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
             {
-                var accessToken = httpContext.Items["AccessToken"] as string;
-                var dto = jwtReader.Extract(accessToken!);
+                var result = await currencyClient.GetByIdAsync(id, ct);
 
+                return result.Match
+                (
+                    onSuccess: () => Results.Ok(result.Value),
+                    onFailure: errors =>
+                    {
+                        logger.LogError("Во время выполнения `CurrencyEndpoints` в `api/v1/currency/get`, пришел не удачный ответ от `ICurrencyClient` в методе `GetByIdAsync`! Ошибка: {Errors}", result.StringMessage);
+                        return errors.MapToMinimalApiResult();
+                    }
+                );
+            }).RequireAuthorization();
+
+            app.MapPatch(_url, async 
+                (
+                    [FromBody] UpdateCurrencyRequest request,
+                    [FromServices] ICurrencyClient currencyClient, 
+                    [FromServices] ILogger<Program> logger,
+                    CancellationToken ct = default
+                ) =>
+            {
                 var result = await currencyClient.UpdateAsync(request, ct);
 
                 return result.Match
@@ -91,17 +96,12 @@ namespace MoneyFlow.Bff.Features.Currency
 
             app.MapDelete("api/v1/currency/{id}", async 
                 (
-                    HttpContext httpContext, 
                     [FromRoute] Guid id,
                     [FromServices] ICurrencyClient currencyClient, 
-                    [FromServices] IJwtReader jwtReader, 
                     [FromServices] ILogger<Program> logger,
                     CancellationToken ct = default
                 ) =>
             {
-                var accessToken = httpContext.Items["AccessToken"] as string;
-                var dto = jwtReader.Extract(accessToken!);
-
                 var result = await currencyClient.DeleteAsync(id, ct);
 
                 return result.Match

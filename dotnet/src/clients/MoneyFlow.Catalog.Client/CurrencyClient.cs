@@ -20,6 +20,9 @@ namespace MoneyFlow.Catalog.Client
         public async Task<Result<List<CurrencyResponse>>> GetAllAsync(CancellationToken ctn = default)
             => await CatchResponseAsync<List<CurrencyResponse>>(async ct => await _http.GetAsync(_url, ct), ctn);
 
+        public async Task<Result<CurrencyResponse>> GetByIdAsync(Guid id, CancellationToken ctn = default)
+            => await CatchResponseAsync<CurrencyResponse>(async ct => await _http.GetAsync($"{_url}/{id}", ct), ctn);
+
         public async Task<Result<Nothing>> UpdateAsync(UpdateCurrencyRequest request, CancellationToken ctn = default)
             => await CatchAsync(async ct => await _http.PatchAsJsonAsync(_url, request, _jsonOptions, ct), ctn);
 

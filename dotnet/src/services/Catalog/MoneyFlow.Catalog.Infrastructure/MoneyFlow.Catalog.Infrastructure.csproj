@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Persistence\Repositories\**\*.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\shared\abstractions\Shared.Cache.Abstraction\Shared.Cache.Abstraction.csproj" />
     <ProjectReference Include="..\..\..\shared\abstractions\Shared.Messaging.Abstraction\Shared.Messaging.Abstraction.csproj" />
     <ProjectReference Include="..\..\..\shared\contracts\Shared.Catalog.Contracts\Shared.Catalog.Contracts.csproj" />

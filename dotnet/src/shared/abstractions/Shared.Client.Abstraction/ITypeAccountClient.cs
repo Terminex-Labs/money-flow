@@ -9,6 +9,7 @@ namespace Shared.Client.Abstraction
     {
         Task<Result<CreatedTypeAccountResponse>> CreateAsync(CreateTypeAccountRequest request, CancellationToken ctn = default);
         Task<Result<List<TypeAccountResponse>>> GetAllAsync(CancellationToken ctn = default);
+        Task<Result<TypeAccountResponse>> GetByIdAsync(Guid id, CancellationToken ctn = default);
         Task<Result<Nothing>> UpdateAsync(UpdateTypeAccountRequest request, CancellationToken ctn = default);
         Task<Result<Nothing>> DeleteAsync(Guid id, CancellationToken ctn = default);
     }

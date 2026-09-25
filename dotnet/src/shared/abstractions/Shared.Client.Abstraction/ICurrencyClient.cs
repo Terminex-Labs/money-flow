@@ -9,6 +9,7 @@ namespace Shared.Client.Abstraction
     {
         Task<Result<CreatedCurrencyResponse>> CreateAsync(CreateCurrencyRequest request, CancellationToken ctn = default);
         Task<Result<List<CurrencyResponse>>> GetAllAsync(CancellationToken ctn = default);
+        Task<Result<CurrencyResponse>> GetByIdAsync(Guid id, CancellationToken ctn = default);
         Task<Result<Nothing>> UpdateAsync(UpdateCurrencyRequest request, CancellationToken ctn = default);
         Task<Result<Nothing>> DeleteAsync(Guid id, CancellationToken ctn = default);
     }
