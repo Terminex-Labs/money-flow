@@ -32,6 +32,7 @@ namespace MoneyFlow.Bff.Extensions
             services.AddHttpClient(catalog, client => client.BaseAddress = new Uri(catalogUri)).AddHttpMessageHandler<AccessTokenHandler>();
             services.AddHttpClient<ICurrencyClient, CurrencyClient>(catalog);
             services.AddHttpClient<ITypeAccountClient, TypeAccountClient>(catalog);
+            services.AddHttpClient<ITypeTransactionClient, TypeTransactionClient>(catalog);
 
             services.AddHttpClient<IAccountClient, AccountClient>(client => client.BaseAddress = new Uri(ledgerUri)).AddHttpMessageHandler<AccessTokenHandler>();
 
