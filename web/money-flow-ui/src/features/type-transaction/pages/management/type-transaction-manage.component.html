@@ -5,16 +5,16 @@
             <div class="datagrid__col datagrid__col--name">Name</div>
 
              <div class="datagrid__col datagrid__col--action">
-                <button class="btn btn--add" (click)="onCreate()">+ Новый тип счета</button>
+                <button class="btn btn--add" (click)="onCreate()">+ Новый тип транзакции</button>
              </div>
         </div>
 
         <!-- Тело таблицы -->
         <div class="datagrid__body">
-            @for (item of typeAccounts(); track item.id) {
+            @for (item of typeTransactions(); track item.id) {
                 <div class="datagrid__row" 
-                     [class.datagrid__row--selected]="selectedTypeAccount()?.id == item.id"
-                     (click)="selectedTypeAccount.set(item)">
+                     [class.datagrid__row--selected]="selectedTypeTransaction()?.id == item.id"
+                     (click)="selectedTypeTransaction.set(item)">
                     <div class="datagrid__col datagrid__col--name">{{ item.name }}</div>
 
                     <div class="datagrid__col datagrid__col--action">
@@ -32,7 +32,7 @@
                 </div>
             } @empty {
                 <div class="datagrid__empty">
-                    <p>Нет доступных типов счетов</p>
+                    <p>Нет доступных типов транзакций</p>
                 </div>
             }
         </div>

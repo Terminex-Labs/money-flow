@@ -8,6 +8,7 @@ namespace MoneyFlow.Catalog.Infrastructure.Persistence.Contexts
     {
         public DbSet<Currency> Currencies { get; set;} = null!;
         public DbSet<TypeAccount> TypeAccounts { get; set;} = null!;
+        public DbSet<TypeTransaction> TypeTransactions { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
